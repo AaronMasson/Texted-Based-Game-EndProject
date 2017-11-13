@@ -1,6 +1,7 @@
 // Texted Based Game 
 // Player will move around in a 10/10 array fighting enemies and finding items trying to get to the door. 
 //There are 5 floors to move through to get to the final boss.
+//Aaron Masson
 
 #include "stdafx.h"
 #include <iostream>
@@ -8,6 +9,7 @@
 #include <stdio.h>
 #include <Windows.h>
 
+//Yeet
 using namespace std;
 // Prototype Functions
 void basement();
