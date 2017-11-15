@@ -1,2 +1,7 @@
-﻿  Texted Based Game EndProject.vcxproj -> C:\Users\jmarshall34828\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe
+﻿  Texted Based Game EndProject.cpp
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(59): warning C4101: 'max': unreferenced local variable
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(58): warning C4101: 'min': unreferenced local variable
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(261): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(286): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Texted Based Game EndProject.vcxproj -> C:\Users\jmarshall34828\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe
   Texted Based Game EndProject.vcxproj -> C:\Users\jmarshall34828\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.pdb (Full PDB)

@@ -11,6 +11,9 @@
 #include <Windows.h>
 #include <ctime>
 
+
+using namespace std;
+
 //======================================================================================================================
 //THIS CODE WAS FOUND ANS WRITTEN BY ERIK ENGLISH CIS150-02.  He allowed me to upload this for everyone to use
 //Code found from cplusplus.com: SOURCE: http://www.cplusplus.com/forum/beginner/105484/ ; User: Giblit
@@ -38,8 +41,6 @@ ostream& operator<<(ostream &stm, const COLOR &c)
 //END OF ERIK'S CODE
 //=============================================================================================================================
 
-
-using namespace std;
 // Prototype Functions
 void basement();
 void map();
