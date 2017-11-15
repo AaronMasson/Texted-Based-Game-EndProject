@@ -11,13 +11,40 @@
 #include <Windows.h>
 #include <ctime>
 
+//======================================================================================================================
+//THIS CODE WAS FOUND ANS WRITTEN BY ERIK ENGLISH CIS150-02.  He allowed me to upload this for everyone to use
+//Code found from cplusplus.com: SOURCE: http://www.cplusplus.com/forum/beginner/105484/ ; User: Giblit
+enum COLOR
+{
+	black, blue,
+	green, cyan,
+	red, magenta,
+	brown, normal,
+	darkgrey, lightblue,
+	lightgreen, lightcyan,
+	lightred, lightmagenta,
+	yellow, white
+};
+
+
+//Not entirely sure what this does but is necessary for coloring text.
+ostream& operator<<(ostream &stm, const COLOR &c)
+{
+	HANDLE out_handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(out_handle, c);
+	return(stm);
+}
+//End of found code from cplusplus.com
+//END OF ERIK'S CODE
+//=============================================================================================================================
+
 
 using namespace std;
 // Prototype Functions
 void basement();
 void map();
 void displaymap(int row, int col, char board[10][10]);
-void combat(int &, int, int);
+void combat(int &, int, int, int);
 int damage(int, int);
 string monster(int);
 
@@ -26,10 +53,17 @@ int main()
 
 	int health = 100;
 
+	// Weapon damage
+	int min;
+	int max;
+	// =============
 //====================== Aaron Masson ==============================
 	string name;
 	string answer;
 	bool valid = true;
+
+	// Sets the color of ALL the text.
+	cout << white;
 
 	cout << "Welcome to my program! " << endl;
 	cout << "Enter in your name: " << endl;
@@ -160,12 +194,9 @@ void basement()
 
 
 // Justin Marshall
-void combat(int &health, int min, int max)
+void combat(int &health, int min, int max, int floor)
 {
 
-
-	int floor;
-	int health = 100;
 	int creaturehp = 100;
 	string action;
 	string creature;
@@ -244,7 +275,7 @@ int damage(int min, int max)
 
 
 }
-string monster(int)
+string monster(int floor)
 {
 
 	string munster;
