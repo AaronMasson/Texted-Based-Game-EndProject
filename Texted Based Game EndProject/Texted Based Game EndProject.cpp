@@ -16,9 +16,13 @@ using namespace std;
 void basement();
 void map();
 void displaymap(int row, int col, char board[10][10]);
+void combat(int &, int, int);
 
 int main()
 {
+
+	int health = 100;
+
 //====================== Aaron Masson ==============================
 	string name;
 	string answer;
@@ -148,5 +152,14 @@ void basement()
 	{
 
 	}
+
+}
+
+
+// Justin Marshall
+void combat(int &health, int min, int max)
+{
+
+
 
 }
