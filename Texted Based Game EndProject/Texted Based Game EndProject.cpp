@@ -28,9 +28,10 @@ int main()
 	getline(cin, name);
 	cout << "Well " << name << ", get ready for a grand adventure through a dark and dangerous tower! " << endl;
 	cout << "Your prize is waiting at the top. Make Haste! " << endl;
-	cout << "To move around simply type go up, go down. Same is for left and right. " << endl;
+	cout << "To move around simply type up, down. Same is for left and right. " << endl;
 	cout << "Are you ready to embark on your journey? (yes) or (no) ";
 	cin >> answer;
+	
 	while (answer != "no" && answer != "yes")
 	{
 		cout << "Enter in a valid answer: ";
@@ -105,11 +106,38 @@ void displaymap(int row, int col, char board[10][10])
 	cout << div << endl;
 }
 
-
-
 void basement()
 {
+	string direction;
+
 	Sleep(2000);
 	system("cls");
-	cout << "Hello" << endl;
+	cout << "You awake in a damp cold room with nothing but a wooden sword. " << endl;
+	cout << "You hear a scream in the distance. " << endl;
+	cout << "Which direction will you go? ";
+	cin >> direction;
+	while (direction != "up" && direction != "down" && direction != "left" && direction != "right")
+	{
+		cout << "Invalid. Please enter up or down or left or right. ";
+		cin >> direction;
+	}
+
+	if (direction == "up")
+	{
+
+	}
+	if (direction == "down")
+	{
+
+
+	}
+	if (direction == "left")
+	{
+
+	}
+	if (direction == "right")
+	{
+
+	}
+
 }
