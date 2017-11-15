@@ -31,6 +31,10 @@ int main()
 	cout << "To move around simply type up, down. Same is for left and right. " << endl;
 	cout << "Are you ready to embark on your journey? (yes) or (no) ";
 	cin >> answer;
+	if (answer == "map")
+	{
+		map();
+	}
 	
 	while (answer != "no" && answer != "yes")
 	{
@@ -43,11 +47,15 @@ int main()
 	
 		basement();
 	}
+	if (answer == "map")
+	{
+		map();
+	}
 
 	else if (answer == "no")
 	{
 		cout << "Too bad " << endl;
-		map();
+		basement();
 	}
 	
 
