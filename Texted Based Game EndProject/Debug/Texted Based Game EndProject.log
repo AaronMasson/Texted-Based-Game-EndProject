@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  stdafx.cpp
   Texted Based Game EndProject.cpp
 c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(59): warning C4101: 'max': unreferenced local variable
@@ -7,3 +8,11 @@ c:\users\adianda\documents\github\texted-based-game-endproject\texted based game
   LINK : C:\Users\adianda\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe not found or not built by the last incremental link; performing full link
   Texted Based Game EndProject.vcxproj -> C:\Users\adianda\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe
   Texted Based Game EndProject.vcxproj -> C:\Users\adianda\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.pdb (Full PDB)
+=======
+﻿  Texted Based Game EndProject.cpp
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(264): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(287): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(285): warning C4101: 'hp': unreferenced local variable
+  Texted Based Game EndProject.vcxproj -> C:\Users\jmarshall34828\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe
+  Texted Based Game EndProject.vcxproj -> C:\Users\jmarshall34828\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.pdb (Full PDB)
+>>>>>>> 032290f11eae5af611bef6caafb5c8ae4c773993
