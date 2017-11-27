@@ -183,10 +183,13 @@ void basement(int &health)
 	// For the while loop to allow constant movement until an enounter.
 	bool movement = true;
 	bool encounter = false;
+
 	// allows movement 
-	// side note they're inverted
+	// side note they're inverted i.e. vert moves you horizontaly.
 	int vert = 1;
 	int hori = 8;
+
+
 	char player = 'P';
 
 	char board[10][10] = {
@@ -261,18 +264,26 @@ void basement(int &health)
 
 		if (direction == "up")
 		{
-			cout << "You did it." << endl;
-			board[hori][vert] = '.';
-			board[hori - 1][vert] = player;
+			if (board[hori - 1][vert] != 'w') {
+				board[hori][vert] = '.';
+				board[hori - 1][vert] = player;
+				hori = hori - 1;
+			}
 
-			Sleep(1000);
+			else if (board[hori - 1][vert] == 'w')
+			{
+				cout << "You ran into a wall, try a different direction." << endl;
+				cout << "Side note: You lost 3 hp.";
+				health = health - 3;
+				Sleep(2000);
+			}
 		}
 		else if (direction == "down")
 		{
 			
 			board[hori][vert] = '.';
 			board[hori + 1][vert] = player;
-
+			hori = hori + 1;
 
 		}
 		else if (direction == "left")
@@ -281,22 +292,32 @@ void basement(int &health)
 			{
 				board[hori][vert] = '.';
 				board[hori][vert - 1] = player;
+				vert = vert - 1;
 			}
 
-			if (board[hori][vert - 1] == 'w')
+			else if (board[hori][vert - 1] == 'w')
 			{
 				cout << "You ran into a wall, try a different direction." << endl;
 				cout << "Side note: You lost 3 hp.";
 				health = health - 3;
+				Sleep(2000);
 			}
-
+			
 		}
 		else if (direction == "right")
 		{
 			if (board[hori][vert] != 'w')
 			{
 				board[hori][vert] = '.';
-				board[hori][vert + 1] = 'P';
+				board[hori][vert + 1] = player;
+				vert = vert + 1;
+			}
+			else if (board[hori][vert + 1] == 'w')
+			{
+				cout << "You ran into a wall, try a different direction." << endl;
+				cout << "Side note: You lost 3 hp.";
+				health = health - 3;
+				Sleep(2000);
 			}
 
 		}
