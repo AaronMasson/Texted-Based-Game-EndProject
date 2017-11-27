@@ -42,7 +42,7 @@ ostream& operator<<(ostream &stm, const COLOR &c)
 //=============================================================================================================================
 
 // Prototype Functions
-void basement();
+void basement(int &);
 void map();
 
 void combat(int &, int, int, int);
@@ -91,13 +91,13 @@ int main()
 	{
 		cout << "Lets begin! " << endl;
 	
-		basement();
+		basement(health);
 	}
 
 	else if (answer == "no")
 	{
 		cout << "Too bad " << endl;
-		basement();
+		basement(health);
 	}
 	
 
@@ -161,7 +161,7 @@ void map()
 
 }
 
-void basement()
+void basement(int &health)
 {
 	string direction;
 
@@ -179,8 +179,15 @@ void basement()
 	int y = 10;
 	int i;
 	int j;
-	static int vert = 1;
-	static int hori = 8;
+
+	// For the while loop to allow constant movement until an enounter.
+	bool movement = true;
+	bool encounter = false;
+	// allows movement 
+	// side note they're inverted
+	int vert = 1;
+	int hori = 8;
+	char player = 'P';
 
 	char board[10][10] = {
 		{ 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' ,'w' },
@@ -212,7 +219,7 @@ void basement()
 	}
 
 
-	board[hori][vert] = 'P';
+	board[hori][vert] = player;
 
 	for (i = 0; i < 10; i++)
 	{
@@ -231,66 +238,71 @@ void basement()
 
 	}
 
-	for (i = 0; i < x; i++)
-	{
-		for (j = 0; j < y; j++)
-		{
-			cout << board[i][j] << " ";
-		}
-		cout << endl;
-	}
 
-	cout << "Which direction will you go? ";
-	cin >> direction;
-	while (direction != "up" && direction != "down" && direction != "left" && direction != "right")
+	while (movement && !encounter) 
 	{
-		cout << "Invalid. Please enter up or down or left or right. ";
+		
+		for (i = 0; i < x; i++)
+		{
+			for (j = 0; j < y; j++)
+			{
+				cout << board[i][j] << " ";
+			}
+			cout << endl;
+		}
+
+		cout << "Which direction will you go? ";
 		cin >> direction;
-	}
-
-	if (direction == "up")
-	{
-
-		board[hori][vert] = '.';
-		board[hori - 1][vert] = 'P';
-
-	}
-	if (direction == "down")
-	{
-		//insert check
-		board[hori][vert] = '.';
-		board[hori + 1][vert] = 'P';
-
-
-	}
-	if (direction == "left")
-	{
-
-		board[hori][vert] = '.';
-		board[hori][vert - 1] = 'P';
-
-	}
-	if (direction == "right")
-	{
-
-		board[hori][vert] = '.';
-		board[hori][vert + 1] = 'P';
-
-	}
-
-	for (i = 0; i < x; i++)
-	{
-
-		for (j = 0; j < y; j++)
+		while (direction != "up" && direction != "down" && direction != "left" && direction != "right")
 		{
-
-			cout << board[i][j] << " ";
-
+			cout << "Invalid. Please enter up or down or left or right. ";
+			cin >> direction;
 		}
 
-		cout << endl;
-	}
+		if (direction == "up")
+		{
+			cout << "You did it." << endl;
+			board[hori][vert] = '.';
+			board[hori - 1][vert] = player;
 
+			Sleep(1000);
+		}
+		else if (direction == "down")
+		{
+			
+			board[hori][vert] = '.';
+			board[hori + 1][vert] = player;
+
+
+		}
+		else if (direction == "left")
+		{
+			if (board[hori][vert - 1] != 'w')
+			{
+				board[hori][vert] = '.';
+				board[hori][vert - 1] = player;
+			}
+
+			if (board[hori][vert - 1] == 'w')
+			{
+				cout << "You ran into a wall, try a different direction." << endl;
+				cout << "Side note: You lost 3 hp.";
+				health = health - 3;
+			}
+
+		}
+		else if (direction == "right")
+		{
+			if (board[hori][vert] != 'w')
+			{
+				board[hori][vert] = '.';
+				board[hori][vert + 1] = 'P';
+			}
+
+		}
+		
+		system("cls");
+	}
 }
 
 
