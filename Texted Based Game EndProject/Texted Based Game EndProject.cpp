@@ -266,13 +266,15 @@ void basement()
 	if (direction == "left")
 	{
 
-
+		board[hori][vert] = '.';
+		board[hori][vert - 1] = 'P';
 
 	}
 	if (direction == "right")
 	{
 
-
+		board[hori][vert] = '.';
+		board[hori][vert + 1] = 'P';
 
 	}
 
