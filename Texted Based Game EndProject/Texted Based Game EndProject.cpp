@@ -124,6 +124,7 @@ void basement(int &health, int &max, int &min, int &floor)
 	time_t t;
 	srand((unsigned)time(&t));
 
+	char wall_v = 186, wall_h = 205, wall_cross = 206, twall_r = 185, twall_l = 204, twall_u = 203, twall_b = 202, wallcap_h = 254, corner_ul = 201, corner_ur = 187, corner_bl = 200, corner_br = 188, door_h = 215, door_v = 216, encounter = 238; //Level Design, Dianda
 	int x = 10;
 	int y = 10;
 	int i;
