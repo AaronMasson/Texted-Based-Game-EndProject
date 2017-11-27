@@ -9,20 +9,62 @@
 #include <string>
 #include <stdio.h>
 #include <Windows.h>
+#include <ctime>
 
-//Yeet
+
 using namespace std;
+
+//======================================================================================================================
+//THIS CODE WAS FOUND ANS WRITTEN BY ERIK ENGLISH CIS150-02.  He allowed me to upload this for everyone to use
+//Code found from cplusplus.com: SOURCE: http://www.cplusplus.com/forum/beginner/105484/ ; User: Giblit
+enum COLOR
+{
+	black, blue,
+	green, cyan,
+	red, magenta,
+	brown, normal,
+	darkgrey, lightblue,
+	lightgreen, lightcyan,
+	lightred, lightmagenta,
+	yellow, white
+};
+
+
+//Not entirely sure what this does but is necessary for coloring text.
+ostream& operator<<(ostream &stm, const COLOR &c)
+{
+	HANDLE out_handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(out_handle, c);
+	return(stm);
+}
+//End of found code from cplusplus.com
+//END OF ERIK'S CODE
+//=============================================================================================================================
+
 // Prototype Functions
 void basement();
 void map();
 void displaymap(int row, int col, char board[10][10]);
+void combat(int &, int, int, int);
+int damage(int, int);
+string monster(int);
 
 int main()
 {
+
+	int health = 100;
+
+	// Weapon damage
+	int min;
+	int max;
+	// =============
 //====================== Aaron Masson ==============================
 	string name;
 	string answer;
 	bool valid = true;
+
+	// Sets the color of ALL the text.
+	cout << white;
 
 	cout << "Welcome to my program! " << endl;
 	cout << "Enter in your name: " << endl;
@@ -150,3 +192,149 @@ void basement()
 	}
 
 }
+
+
+// Justin Marshall
+void combat(int &health, int min, int max, int floor)
+{
+
+	int creaturehp = 100;
+	string action;
+	string creature;
+	int damagedealt;
+
+
+
+
+
+	cout << "Enter in a minimum value: ";
+	cin >> min;
+
+	cout << "Enter in a maximum value: ";
+	cin >> max;
+
+	cout << "Enter in the floor: ";
+	cin >> floor;
+
+	creature = monster(floor);
+	cout << "You run into a " << creature << ".\nChoose what you want to do attack, flee, or use item: ";
+	cin >> action;
+
+	while (health > 0 && creaturehp > 0 && action == "attack")
+	{
+
+		if (action == "attack")
+		{
+
+			damagedealt = damage(min, max);
+			creaturehp = creaturehp - damagedealt;
+
+			cout << "You deal " << red << damagedealt << white << " damage." << endl;
+		}
+
+
+		damagedealt = damage(min, max);
+		health = health - damagedealt;
+
+		cout << health << endl;
+
+		cout << "The " << monster << " hit you for " << red << damagedealt << white << "." << endl;
+
+
+		cout << "Choose what you want to do attack, flee, or use item : ";
+		cin >> action;
+	}
+
+
+}
+
+int damage(int min, int max)
+{
+
+	int ow;
+	static bool first = true;
+
+	// Source: https://stackoverflow.com/questions/7560114/random-number-c-in-some-range/7560171#7560171 by Nawaz and Benjamin Lindley
+	if (first == true)
+	{
+
+		srand(time(NULL));
+		first = false;
+	}
+
+
+	for (int i = 0; i < 1; i++)
+	{
+
+		ow = min + rand() % max;
+
+
+	}
+
+
+	return ow;
+
+
+}
+string monster(int floor)
+{
+
+	string munster;
+	int yeet;
+	int max = floor;
+
+	srand(time(NULL));
+
+	yeet = rand() % max;
+
+
+	if (yeet == 0)
+	{
+
+		munster = "imp";
+
+	}
+
+	if (yeet == 1)
+	{
+
+		munster = "goblin";
+
+	}
+
+
+	if (yeet == 2)
+	{
+
+		munster = "orc";
+
+	}
+
+	if (yeet == 3)
+	{
+
+		munster = "chandelier";
+
+	}
+
+	if (yeet == 4)
+	{
+
+		munster = "sleep deprived college students";
+
+	}
+	if (yeet == 5)
+	{
+
+		munster = "Zachary Moore";
+
+	}
+
+
+
+	return munster;
+
+}
+
+// End Justin Marshall
+//==============================================================================================================================
