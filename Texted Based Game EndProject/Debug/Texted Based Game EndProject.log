@@ -1,1 +1,32 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.Cpp.Platform.targets(57,5): error MSB8020: The build tools for v140 (Platform Toolset = 'v140') cannot be found. To build using the v140 build tools, please install v140 build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Retarget solution".
+<<<<<<< HEAD
+﻿  stdafx.cpp
+  Texted Based Game EndProject.cpp
+c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(59): warning C4101: 'max': unreferenced local variable
+c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(58): warning C4101: 'min': unreferenced local variable
+c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(261): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(286): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  LINK : C:\Users\adianda\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe not found or not built by the last incremental link; performing full link
+  Texted Based Game EndProject.vcxproj -> C:\Users\adianda\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe
+  Texted Based Game EndProject.vcxproj -> C:\Users\adianda\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.pdb (Full PDB)
+=======
+﻿  Texted Based Game EndProject.cpp
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(123): warning C4566: character represented by universal-character-name '\u2554' cannot be represented in the current code page (1252)
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(123): warning C4566: character represented by universal-character-name '\u2550' cannot be represented in the current code page (1252)
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(123): warning C4566: character represented by universal-character-name '\u2557' cannot be represented in the current code page (1252)
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(124): warning C4566: character represented by universal-character-name '\u2551' cannot be represented in the current code page (1252)
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(125): warning C4566: character represented by universal-character-name '\u2551' cannot be represented in the current code page (1252)
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(126): warning C4566: character represented by universal-character-name '\u2551' cannot be represented in the current code page (1252)
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(127): warning C4566: character represented by universal-character-name '\u2551' cannot be represented in the current code page (1252)
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(128): warning C4566: character represented by universal-character-name '\u2551' cannot be represented in the current code page (1252)
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(129): warning C4566: character represented by universal-character-name '\u2551' cannot be represented in the current code page (1252)
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(130): warning C4566: character represented by universal-character-name '\u2551' cannot be represented in the current code page (1252)
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(131): warning C4566: character represented by universal-character-name '\u2551' cannot be represented in the current code page (1252)
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(132): warning C4566: character represented by universal-character-name '\u255A' cannot be represented in the current code page (1252)
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(132): warning C4566: character represented by universal-character-name '\u2550' cannot be represented in the current code page (1252)
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(132): warning C4566: character represented by universal-character-name '\u255D' cannot be represented in the current code page (1252)
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(371): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(394): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(392): warning C4101: 'hp': unreferenced local variable
+  Texted Based Game EndProject.vcxproj -> C:\Users\jmarshall34828\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe
+  Texted Based Game EndProject.vcxproj -> C:\Users\jmarshall34828\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.pdb (Full PDB)
+>>>>>>> 032290f11eae5af611bef6caafb5c8ae4c773993
