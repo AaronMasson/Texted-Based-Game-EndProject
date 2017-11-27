@@ -1,1 +1,9 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.Cpp.Platform.targets(57,5): error MSB8020: The build tools for v140 (Platform Toolset = 'v140') cannot be found. To build using the v140 build tools, please install v140 build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Retarget solution".
+﻿  stdafx.cpp
+  Texted Based Game EndProject.cpp
+c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(59): warning C4101: 'max': unreferenced local variable
+c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(58): warning C4101: 'min': unreferenced local variable
+c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(261): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(286): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  LINK : C:\Users\adianda\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe not found or not built by the last incremental link; performing full link
+  Texted Based Game EndProject.vcxproj -> C:\Users\adianda\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe
+  Texted Based Game EndProject.vcxproj -> C:\Users\adianda\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.pdb (Full PDB)
