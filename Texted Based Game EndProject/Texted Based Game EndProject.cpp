@@ -1,4 +1,4 @@
-// Texted Based Game 
+﻿// Texted Based Game 
 // Player will move around in a 10/10 array fighting enemies and finding items trying to get to the door. 
 //There are 5 floors to move through to get to the final boss.
 //Aaron Masson
@@ -44,7 +44,7 @@ ostream& operator<<(ostream &stm, const COLOR &c)
 // Prototype Functions
 void basement();
 void map();
-void displaymap(int row, int col, char board[10][10]);
+
 void combat(int &, int, int, int);
 int damage(int, int);
 void monster(int, int &, int &, string &);
@@ -80,20 +80,18 @@ int main()
 		map();
 	}
 	
-	while (answer != "no" && answer != "yes")
+	while (answer != "no" && answer != "yes" && answer != "map")
 	{
 		cout << "Enter in a valid answer: ";
 		cin >> answer;
+
+
 	}
 	if (answer == "yes")
 	{
 		cout << "Lets begin! " << endl;
 	
 		basement();
-	}
-	if (answer == "map")
-	{
-		map();
 	}
 
 	else if (answer == "no")
@@ -109,53 +107,79 @@ int main()
 
 void map()
 {
-	const int rows = 10;
-	const int cols = 10;
 
-	char board[rows][cols] = {
-		{' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,' ' },
-		{' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,' ' },
-		{' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,' ' },
-		{' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,' ' },
-		{' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,' ' },
-		{' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,' ' },
-		{' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,' ' },
-		{' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,' ' },
-		{' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,' ' },
-		{'/' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,' ' },
+	system("cls");
+	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1
+	time_t t;
+	srand((unsigned)time(&t));
+
+	int x = 10;
+	int y = 10;
+	int i;
+	int j;
+	
+
+	char board[10][10] = {
+		{ '╔' , '═' , '═' , '═' , '═' , '═' , '═' , '═' , '═' ,'╗' },
+		{ '║' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'║' },
+		{ '║' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'║' },
+		{ '║' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'║' },
+		{ '║' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'║' },
+		{ '║' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'║' },
+		{ '║' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'║' },
+		{ '║' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'║' },
+		{ '║' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'║' },
+		{ '╚' , '═' , '═' , '═' , '═' , '═' , '═' , '═' , '═' ,'╝' },
 
 	};
-	displaymap(rows, cols, board);
-}
 
-void displaymap(int row, int col, char board[10][10])
-{
-	system("cls");
-	string div = "=====================";
-	string between = "---------------------";
-	cout << div << endl;
-	for (int i = 0; i < row; i++)
+	for (i = 0; i < x; i++)
 	{
-		//used to divide cells
-		cout << "|";
-		for (int j = 0; j < col; j++)
+
+		for (j = 0; j < y; j++)
 		{
-			//Display contents of array and a divider between each cell
-			cout << board[i][j] << "|";
-		}
-		//i dont want to display this if this is my last row because I will display div instead
-		if (i != row - 1)
-		{
-			//Divider between rows
-			cout << endl << between << endl;
-		}
-		else
-		{
-			cout << endl;
+			if (board[i][j] != 'w')
+			{
+				board[i][j] = '.';
+			}
+
 		}
 
 	}
-	cout << div << endl;
+
+
+	board[8][1] = 'P';
+
+	for (i = 0; i < 10; i++)
+	{
+
+		
+		i = rand() % 10;
+		j = rand() % 10;
+
+
+		while (board[i][j] == '.')
+		{
+
+			board[i][j] = '?';
+
+		}
+
+	}
+	
+	for (i = 0; i < x; i++)
+	{
+
+		for (j = 0; j < y; j++)
+		{
+
+			cout << board[i][j] << " ";
+
+		}
+
+		cout << endl;
+	}
+
 }
 
 void basement()
@@ -164,8 +188,82 @@ void basement()
 
 	Sleep(2000);
 	system("cls");
+
 	cout << "You awake in a damp cold room with nothing but a wooden sword. " << endl;
 	cout << "You hear a scream in the distance. " << endl;
+
+	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1
+	time_t t;
+	srand((unsigned)time(&t));
+
+	int x = 10;
+	int y = 10;
+	int i;
+	int j;
+
+
+	char board[10][10] = {
+		{ 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' ,'w' },
+
+	};
+
+
+	for (i = 0; i < x; i++)
+	{
+
+		for (j = 0; j < y; j++)
+		{
+			if (board[i][j] != 'w')
+			{
+				board[i][j] = '.';
+			}
+
+		}
+
+	}
+
+
+	board[8][1] = 'P';
+
+	for (i = 0; i < 10; i++)
+	{
+
+
+		i = rand() % 10;
+		j = rand() % 10;
+
+
+		while (board[i][j] == '.')
+		{
+
+			board[i][j] = '?';
+
+		}
+
+	}
+
+	for (i = 0; i < x; i++)
+	{
+
+		for (j = 0; j < y; j++)
+		{
+
+			cout << board[i][j] << " ";
+
+		}
+
+		cout << endl;
+	}
+
 	cout << "Which direction will you go? ";
 	cin >> direction;
 	while (direction != "up" && direction != "down" && direction != "left" && direction != "right")
@@ -177,18 +275,26 @@ void basement()
 	if (direction == "up")
 	{
 
+
+
 	}
 	if (direction == "down")
 	{
+
+
 
 
 	}
 	if (direction == "left")
 	{
 
+
+
 	}
 	if (direction == "right")
 	{
+
+
 
 	}
 
