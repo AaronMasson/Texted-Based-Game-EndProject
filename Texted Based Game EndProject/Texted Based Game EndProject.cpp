@@ -47,7 +47,8 @@ void map();
 void displaymap(int row, int col, char board[10][10]);
 void combat(int &, int, int, int);
 int damage(int, int);
-string monster(int);
+void monster(int, int &, int &, string &);
+
 
 int main()
 {
@@ -55,8 +56,8 @@ int main()
 	int health = 100;
 
 	// Weapon damage
-	int min;
-	int max;
+	int min = 5;
+	int max = 10;
 	// =============
 //====================== Aaron Masson ==============================
 	string name;
@@ -202,6 +203,8 @@ void combat(int &health, int min, int max, int floor)
 	string action;
 	string creature;
 	int damagedealt;
+	int cmin;
+	int cmax;
 
 
 
@@ -216,7 +219,7 @@ void combat(int &health, int min, int max, int floor)
 	cout << "Enter in the floor: ";
 	cin >> floor;
 
-	creature = monster(floor);
+	monster(floor, cmax, cmin, creature);
 	cout << "You run into a " << creature << ".\nChoose what you want to do attack, flee, or use item: ";
 	cin >> action;
 
@@ -276,22 +279,23 @@ int damage(int min, int max)
 
 
 }
-string monster(int floor)
+void monster(int floor, int &maxdam, int &mindam, string &munster)
 {
-
-	string munster;
 	int yeet;
-	int max = floor;
+	int hp;
 
 	srand(time(NULL));
 
-	yeet = rand() % max;
+	yeet = rand() % floor;
 
 
 	if (yeet == 0)
 	{
 
 		munster = "imp";
+		mindam = 1;
+		maxdam = 5;
+
 
 	}
 
@@ -299,6 +303,9 @@ string monster(int floor)
 	{
 
 		munster = "goblin";
+
+		mindam = 4;
+		maxdam = 8;
 
 	}
 
@@ -308,12 +315,19 @@ string monster(int floor)
 
 		munster = "orc";
 
+		mindam = 7;
+		maxdam = 12;
+
 	}
 
 	if (yeet == 3)
 	{
 
 		munster = "chandelier";
+
+		mindam = 10;
+		maxdam = 16;
+
 
 	}
 
@@ -322,17 +336,21 @@ string monster(int floor)
 
 		munster = "sleep deprived college students";
 
+		mindam = 14;
+		maxdam = 19;
+
 	}
 	if (yeet == 5)
 	{
 
 		munster = "Zachary Moore";
 
+		mindam = 18;
+		maxdam = 25;
+
 	}
 
 
-
-	return munster;
 
 }
 
