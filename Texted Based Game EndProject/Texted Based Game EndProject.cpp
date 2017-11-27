@@ -42,12 +42,14 @@ ostream& operator<<(ostream &stm, const COLOR &c)
 //=============================================================================================================================
 
 // Prototype Functions
-void basement(int &);
-void map();
-
+void basement(int &, int &, int &, int &);
 void combat(int &, int, int, int);
 int damage(int, int);
 void monster(int, int &, int &, string &);
+void map();
+
+// Decides what they will run into (items or monster)
+void huh(int &, int &, int &, int &);
 
 
 int main()
@@ -57,8 +59,10 @@ int main()
 
 	// Weapon damage
 	int min = 5;
-	int max = 10;
+	int max = 11;
 	// =============
+
+	int floor;
 //====================== Aaron Masson ==============================
 	string name;
 	string answer;
@@ -91,13 +95,13 @@ int main()
 	{
 		cout << "Lets begin! " << endl;
 	
-		basement(health);
+		basement(health, max, min, floor);
 	}
 
 	else if (answer == "no")
 	{
 		cout << "Too bad " << endl;
-		basement(health);
+		basement(health, max, min, floor);
 	}
 	
 
@@ -105,70 +109,15 @@ int main()
     return 0;
 }
 
-void map()
-{
 
-	system("cls");
-	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1
-	time_t t;
-	srand((unsigned)time(&t));
-
-	int x = 10;
-	int y = 10;
-	int i;
-	int j;
-	
-
-	char board[10][10] = {
-		{ 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' ,'w' },
-
-	};
-
-	for (i = 0; i < x; i++)
-	{
-		for (j = 0; j < y; j++)
-		{
-			if (board[i][j] != 'w')
-			{
-				board[i][j] = '.';
-			}
-		}
-	}
-
-	board[8][1] = 'P';
-	
-	for (i = 0; i < x; i++)
-	{
-
-		for (j = 0; j < y; j++)
-		{
-
-			cout << board[i][j] << " ";
-
-		}
-
-		cout << endl;
-	}
-
-}
-
-void basement(int &health)
+void basement(int &health, int &max, int &min, int &floor)
 {
 	string direction;
-
+	floor = 1;
 	Sleep(2000);
 	system("cls");
 
-	cout << "You awake in a damp cold room with nothing but a wooden sword. " << endl;
+	cout << "You awake in a damp cold room with nothing but a wooden sword and a mug (what a night eh). " << endl;
 	cout << "You hear a scream in the distance. " << endl;
 
 	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1
@@ -277,13 +226,36 @@ void basement(int &health)
 				health = health - 3;
 				Sleep(2000);
 			}
+
+			else if (board[hori - 1][vert] == '?')
+			{
+
+				huh(health, max, min, floor);
+			}
 		}
 		else if (direction == "down")
 		{
 			
-			board[hori][vert] = '.';
-			board[hori + 1][vert] = player;
-			hori = hori + 1;
+			if (board[hori + 1][vert] != 'w') 
+			{
+				board[hori][vert] = '.';
+				board[hori + 1][vert] = player;
+				hori = hori + 1;
+			}
+			else if (board[hori + 1][vert] == 'w')
+			{
+				cout << "You ran into a wall, try a different direction." << endl;
+				cout << "Side note: You lost 3 hp.";
+				health = health - 3;
+				Sleep(2000);
+			}
+
+			else if (board[hori + 1][vert] == '?')
+			{
+
+				huh(health, max, min, floor);
+
+			}
 
 		}
 		else if (direction == "left")
@@ -302,11 +274,18 @@ void basement(int &health)
 				health = health - 3;
 				Sleep(2000);
 			}
+
+			else if (board[hori][vert - 1] == '?')
+			{
+
+				huh(health, max, min, floor);
+
+			}
 			
 		}
 		else if (direction == "right")
 		{
-			if (board[hori][vert] != 'w')
+			if (board[hori][vert + 1] != 'w' &&  board[hori][vert + 1] != '?')
 			{
 				board[hori][vert] = '.';
 				board[hori][vert + 1] = player;
@@ -318,6 +297,13 @@ void basement(int &health)
 				cout << "Side note: You lost 3 hp.";
 				health = health - 3;
 				Sleep(2000);
+			}
+
+			else if (board[hori][vert + 1] == '?')
+			{
+
+				huh(health, max, min, floor);
+
 			}
 
 		}
@@ -342,14 +328,6 @@ void combat(int &health, int min, int max, int floor)
 
 
 
-	cout << "Enter in a minimum value: ";
-	cin >> min;
-
-	cout << "Enter in a maximum value: ";
-	cin >> max;
-
-	cout << "Enter in the floor: ";
-	cin >> floor;
 
 	monster(floor, cmax, cmin, creature);
 	cout << "You run into a " << creature << ".\nChoose what you want to do attack, flee, or use item: ";
@@ -486,5 +464,77 @@ void monster(int floor, int &maxdam, int &mindam, string &munster)
 
 }
 
+void huh(int &health, int &max, int &min, int &floor)
+{
+	srand(time(NULL));
+
+	int uhh;
+	uhh = 1;
+
+	if (uhh == 1)
+	{
+		combat(health, max, min, floor);
+
+	}
+
+
+}
+
 // End Justin Marshall
 //==============================================================================================================================
+
+void map()
+{
+
+	system("cls");
+	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1
+	time_t t;
+	srand((unsigned)time(&t));
+
+	int x = 10;
+	int y = 10;
+	int i;
+	int j;
+
+
+	char board[10][10] = {
+		{ 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
+		{ 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' ,'w' },
+
+	};
+
+	for (i = 0; i < x; i++)
+	{
+		for (j = 0; j < y; j++)
+		{
+			if (board[i][j] != 'w')
+			{
+				board[i][j] = '.';
+			}
+		}
+	}
+
+	board[8][1] = 'P';
+
+	for (i = 0; i < x; i++)
+	{
+
+		for (j = 0; j < y; j++)
+		{
+
+			cout << board[i][j] << " ";
+
+		}
+
+		cout << endl;
+	}
+
+}
