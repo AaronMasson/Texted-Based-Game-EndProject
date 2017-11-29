@@ -132,7 +132,7 @@ void basement(int &health, int &max, int &min, int &floor)
 
 	// For the while loop to allow constant movement until an enounter.
 	bool movement = true;
-	bool encounter = false;
+
 
 	// allows movement 
 	// side note they're inverted i.e. vert moves you horizontaly.
@@ -192,7 +192,7 @@ void basement(int &health, int &max, int &min, int &floor)
 	}
 
 
-	while (movement && !encounter) 
+	while (movement) 
 	{
 		
 		for (i = 0; i < x; i++)
