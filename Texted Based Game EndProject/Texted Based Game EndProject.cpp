@@ -197,12 +197,12 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive)
 
 	board[hori][vert] = player;
 
-	for (i = 0; i < 10; i++)
+	for (x = 0; x < 10; x++)
 	{
 
 
-		i = rand() % 10;
-		j = rand() % 10;
+		i = 1 + rand() % 9;
+		j = 1 + rand() % 9;
 
 
 		while (board[i][j] == '.')
@@ -237,7 +237,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive)
 
 		if (direction == "up")
 		{
-			if (board[hori - 1][vert] != 'w') {
+			if (board[hori - 1][vert] != 'w' && board[hori - 1][vert] != '?') {
 				board[hori][vert] = '.';
 				board[hori - 1][vert] = player;
 				hori = hori - 1;
@@ -260,7 +260,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive)
 		else if (direction == "down")
 		{
 			
-			if (board[hori + 1][vert] != 'w') 
+			if (board[hori + 1][vert] != 'w' && board[hori + 1][vert] != '?')
 			{
 				board[hori][vert] = '.';
 				board[hori + 1][vert] = player;
@@ -284,7 +284,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive)
 		}
 		else if (direction == "left")
 		{
-			if (board[hori][vert - 1] != 'w')
+			if (board[hori][vert - 1] != 'w' && board[hori][vert - 1] != '?')
 			{
 				board[hori][vert] = '.';
 				board[hori][vert - 1] = player;
@@ -309,7 +309,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive)
 		}
 		else if (direction == "right")
 		{
-			if (board[hori][vert + 1] != 'w' &&  board[hori][vert + 1] != '?')
+			if (board[hori][vert + 1] != 'w' && board[hori][vert + 1] != '?')
 			{
 				board[hori][vert] = '.';
 				board[hori][vert + 1] = player;
@@ -328,6 +328,8 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive)
 
 				huh(health, max, min, floor, alive);
 
+				board[hori][vert + 1] = player;
+				vert = vert + 1;
 			}
 
 		}
@@ -354,7 +356,9 @@ void combat(int &health, int min, int max, int floor, bool &alive)
 
 
 	monster(floor, cmax, cmin, creature, creaturehp);
-	cout << cmax << endl << cmin << endl << creature << endl << creaturehp << endl;
+
+	// Checks to make sure they are returning correct values.
+	//cout << cmax << endl << cmin << endl << creature << endl << creaturehp << endl;
 	cout << "You run into a " << creature << endl;
 
 	while (health > 0 && creaturehp > 0)
@@ -378,7 +382,7 @@ void combat(int &health, int min, int max, int floor, bool &alive)
 
 		cout << "The " << creature << " hit you for " << red << damagedealt << white << "." << endl;
 
-		cout << "You have " << health << "remaining." << endl << "The " << creature << "has " << creaturehp << "remaining." << endl;
+		cout << "You have " << health << " remaining." << endl << "The " << creature << " has " << creaturehp << " remaining." << endl;
 		
 	}
 
@@ -429,7 +433,7 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 		munster = "imp";
 		mindam = 1;
 		maxdam = 5;
-		creaturehp = 25;
+		creaturehp = 250;
 
 
 	}
@@ -532,9 +536,9 @@ void map()
 		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
 		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
 		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' ,'w' },
+		{ 'w' , '|' , '_' , '_' , '_' , '_' , '_' , '_' , '_' ,'w' },
+		{ 'w' , '|' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , '|' ,'w' },
+		{ 'w' , '|' , '_' , '_' , '_' , '_' , '_' , '_' , '|' ,'w' },
 
 	};
 
