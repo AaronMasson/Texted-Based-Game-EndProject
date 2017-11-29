@@ -75,7 +75,7 @@ int main()
 	cout << "Enter in your name: " << endl;
 	getline(cin, name);
 	cout << "Well " << name << ", get ready for a grand adventure through a dark and dangerous tower! " << endl;
-	cout << "Your prize is waiting at the top. Make Haste! " << endl;
+	cout << "Your prize is waiting at the top of the tower. Make Haste! " << endl;
 	cout << "To move around simply type up, down. Same is for left and right. " << endl;
 	cout << "Are you ready to embark on your journey? (yes) or (no) ";
 	cin >> answer;
@@ -352,7 +352,7 @@ void combat(int &health, int min, int max, int floor)
 
 		cout << health << endl;
 
-		cout << "The " << monster << " hit you for " << red << damagedealt << white << "." << endl;
+		cout << "The " << creature << " hit you for " << red << damagedealt << white << "." << endl;
 
 
 		cout << "Choose what you want to do attack, flee, or use item : ";
