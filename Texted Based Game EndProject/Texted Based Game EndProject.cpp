@@ -352,7 +352,7 @@ void combat(int &health, int min, int max, int floor)
 
 		cout << health << endl;
 
-		cout << "The " << creature << " hit you for " << red << damagedealt << white << "." << endl;
+		cout << "The " << monster << " hit you for " << red << damagedealt << white << "." << endl;
 
 
 		cout << "Choose what you want to do attack, flee, or use item : ";
