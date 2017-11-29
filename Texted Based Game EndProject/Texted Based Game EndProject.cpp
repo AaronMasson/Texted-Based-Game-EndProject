@@ -42,14 +42,14 @@ ostream& operator<<(ostream &stm, const COLOR &c)
 //=============================================================================================================================
 
 // Prototype Functions
-void basement(int &, int &, int &, int &);
-void combat(int &, int, int, int);
+void basement(int &, int &, int &, int &, bool &);
+void combat(int &, int, int, int, bool &);
 int damage(int, int);
-void monster(int, int &, int &, string &);
+void monster(int, int &, int &, string &, int &);
 void map();
 
 // Decides what they will run into (items or monster)
-void huh(int &, int &, int &, int &);
+void huh(int &, int &, int &, int &, bool &);
 
 
 int main()
@@ -61,7 +61,8 @@ int main()
 	int min = 5;
 	int max = 11;
 	// =============
-
+	bool alive;
+	static bool first = true;
 	int floor;
 //====================== Aaron Masson ==============================
 	string name;
@@ -70,47 +71,69 @@ int main()
 
 	// Sets the color of ALL the text.
 	cout << white;
+	if (first)
+	{
+		alive = true;
+		first = false;
 
-	cout << "Welcome to my program! " << endl;
-	cout << "Enter in your name: " << endl;
-	getline(cin, name);
-	cout << "Well " << name << ", get ready for a grand adventure through a dark and dangerous tower! " << endl;
-	cout << "Your prize is waiting at the top of the tower. Make Haste! " << endl;
-	cout << "To move around simply type up, down. Same is for left and right. " << endl;
-	cout << "Are you ready to embark on your journey? (yes) or (no) ";
-	cin >> answer;
-	if (answer == "map")
-	{
-		map();
 	}
-	
-	while (answer != "no" && answer != "yes" && answer != "map")
+
+	else
 	{
-		cout << "Enter in a valid answer: ";
+		alive = false;
+	}
+
+
+	if (alive) 
+	{
+		cout << "Welcome to my program! " << endl;
+		cout << "Enter in your name: " << endl;
+		getline(cin, name);
+		cout << "Well " << name << ", get ready for a grand adventure through a dark and dangerous tower! " << endl;
+		cout << "Your prize is waiting at the top of the tower. Make Haste! " << endl;
+		cout << "To move around simply type up, down. Same is for left and right. " << endl;
+		cout << "Are you ready to embark on your journey? (yes) or (no) ";
 		cin >> answer;
+		if (answer == "map")
+		{
+			map();
+		}
+
+		while (answer != "no" && answer != "yes" && answer != "map")
+		{
+			cout << "Enter in a valid answer: ";
+			cin >> answer;
 
 
+		}
+		if (answer == "yes")
+		{
+			cout << "Lets begin! " << endl;
+
+			basement(health, max, min, floor, alive);
+		}
+
+		else if (answer == "no")
+		{
+			cout << "Too bad " << endl;
+			basement(health, max, min, floor, alive);
+		}
 	}
-	if (answer == "yes")
+	if (alive == false)
 	{
-		cout << "Lets begin! " << endl;
-	
-		basement(health, max, min, floor);
-	}
+		cout << "You died" << endl;
 
-	else if (answer == "no")
-	{
-		cout << "Too bad " << endl;
-		basement(health, max, min, floor);
+		Sleep(2000);
+		cout << endl << endl << endl << "Sorry" << endl;
+		alive = false;
 	}
-	
 
 	system("pause");
     return 0;
 }
 
 
-void basement(int &health, int &max, int &min, int &floor)
+void basement(int &health, int &max, int &min, int &floor, bool &alive)
 {
 	string direction;
 	floor = 1;
@@ -192,7 +215,7 @@ void basement(int &health, int &max, int &min, int &floor)
 	}
 
 
-	while (movement) 
+	while (movement && alive) 
 	{
 		
 		for (i = 0; i < x; i++)
@@ -231,7 +254,7 @@ void basement(int &health, int &max, int &min, int &floor)
 			else if (board[hori - 1][vert] == '?')
 			{
 
-				huh(health, max, min, floor);
+				huh(health, max, min, floor, alive);
 			}
 		}
 		else if (direction == "down")
@@ -254,7 +277,7 @@ void basement(int &health, int &max, int &min, int &floor)
 			else if (board[hori + 1][vert] == '?')
 			{
 
-				huh(health, max, min, floor);
+				huh(health, max, min, floor, alive);
 
 			}
 
@@ -279,7 +302,7 @@ void basement(int &health, int &max, int &min, int &floor)
 			else if (board[hori][vert - 1] == '?')
 			{
 
-				huh(health, max, min, floor);
+				huh(health, max, min, floor, alive);
 
 			}
 			
@@ -303,7 +326,7 @@ void basement(int &health, int &max, int &min, int &floor)
 			else if (board[hori][vert + 1] == '?')
 			{
 
-				huh(health, max, min, floor);
+				huh(health, max, min, floor, alive);
 
 			}
 
@@ -315,10 +338,10 @@ void basement(int &health, int &max, int &min, int &floor)
 
 
 // Justin Marshall
-void combat(int &health, int min, int max, int floor)
+void combat(int &health, int min, int max, int floor, bool &alive)
 {
 
-	int creaturehp = 100;
+	int creaturehp;
 	string action;
 	string creature;
 	int damagedealt;
@@ -330,12 +353,14 @@ void combat(int &health, int min, int max, int floor)
 
 
 
-	monster(floor, cmax, cmin, creature);
-	cout << "You run into a " << creature << ".\nChoose what you want to do attack, flee, or use item: ";
-	cin >> action;
+	monster(floor, cmax, cmin, creature, creaturehp);
+	cout << cmax << endl << cmin << endl << creature << endl << creaturehp << endl;
+	cout << "You run into a " << creature << endl;
 
-	while (health > 0 && creaturehp > 0 && action == "attack")
+	while (health > 0 && creaturehp > 0)
 	{
+		cout << "Choose what you want to do attack, flee, or use item : ";
+		cin >> action;
 
 		if (action == "attack")
 		{
@@ -347,16 +372,14 @@ void combat(int &health, int min, int max, int floor)
 		}
 
 
-		damagedealt = damage(min, max);
+		damagedealt = damage(cmin, cmax);
 		health = health - damagedealt;
 
-		cout << health << endl;
 
-		cout << "The " << monster << " hit you for " << red << damagedealt << white << "." << endl;
+		cout << "The " << creature << " hit you for " << red << damagedealt << white << "." << endl;
 
-
-		cout << "Choose what you want to do attack, flee, or use item : ";
-		cin >> action;
+		cout << "You have " << health << "remaining." << endl << "The " << creature << "has " << creaturehp << "remaining." << endl;
+		
 	}
 
 
@@ -390,7 +413,7 @@ int damage(int min, int max)
 
 
 }
-void monster(int floor, int &maxdam, int &mindam, string &munster)
+void monster(int floor, int &maxdam, int &mindam, string &munster, int &creaturehp)
 {
 	int yeet;
 	int hp;
@@ -406,6 +429,7 @@ void monster(int floor, int &maxdam, int &mindam, string &munster)
 		munster = "imp";
 		mindam = 1;
 		maxdam = 5;
+		creaturehp = 25;
 
 
 	}
@@ -417,7 +441,7 @@ void monster(int floor, int &maxdam, int &mindam, string &munster)
 
 		mindam = 4;
 		maxdam = 8;
-
+		creaturehp = 50;
 	}
 
 
@@ -428,7 +452,7 @@ void monster(int floor, int &maxdam, int &mindam, string &munster)
 
 		mindam = 7;
 		maxdam = 12;
-
+		creaturehp = 55;
 	}
 
 	if (yeet == 3)
@@ -438,6 +462,7 @@ void monster(int floor, int &maxdam, int &mindam, string &munster)
 
 		mindam = 10;
 		maxdam = 16;
+		creaturehp = 65;
 
 
 	}
@@ -449,6 +474,7 @@ void monster(int floor, int &maxdam, int &mindam, string &munster)
 
 		mindam = 14;
 		maxdam = 19;
+		creaturehp = 70;
 
 	}
 	if (yeet == 5)
@@ -458,14 +484,14 @@ void monster(int floor, int &maxdam, int &mindam, string &munster)
 
 		mindam = 18;
 		maxdam = 25;
-
+		creaturehp = 1000000;
 	}
 
 
 
 }
 
-void huh(int &health, int &max, int &min, int &floor)
+void huh(int &health, int &max, int &min, int &floor, bool &alive)
 {
 	srand(time(NULL));
 
@@ -474,7 +500,7 @@ void huh(int &health, int &max, int &min, int &floor)
 
 	if (uhh == 1)
 	{
-		combat(health, max, min, floor);
+		combat(health, max, min, floor, alive);
 
 	}
 
