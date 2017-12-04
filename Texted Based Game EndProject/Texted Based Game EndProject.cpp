@@ -170,7 +170,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 
 
 	char player = 'P';
-
+	// Dianda start
 	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
@@ -182,7 +182,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ corner_bl, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, corner_br }
 	};
-
+	// Dianda end
 	//for (i = 0; i < x; i++)
 	//{
 
@@ -208,7 +208,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 		j = 1 + rand() % 9;
 
 
-		while (board[i][j] == '.')
+		while (board[i][j] == ' ')
 		{
 
 			board[i][j] = '?';
@@ -225,7 +225,15 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 		{
 			for (j = 0; j < y; j++)
 			{
-				cout << board[i][j] << " ";
+				if (i == 0 && j < 9) {
+					cout << board[i][j] << wall_h;
+				}
+				else if (i == 9 && j < 9) {
+					cout << board[i][j] << wall_h;
+				}
+				else {
+					cout << board[i][j] << " ";
+				}
 			}
 			cout << endl;
 		}
@@ -240,13 +248,13 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 
 		if (answer == "up")
 		{
-			if (board[hori - 1][vert] != 'w' && board[hori - 1][vert] != '?') {
-				board[hori][vert] = '.';
+			if (board[hori - 1][vert] != wall_h && board[hori - 1][vert] != '?') {
+				board[hori][vert] = ' ';
 				board[hori - 1][vert] = player;
 				hori = hori - 1;
 			}
 
-			else if (board[hori - 1][vert] == 'w')
+			else if (board[hori - 1][vert] == wall_h)
 			{
 				cout << "You ran into a wall, try a different direction." << endl;
 				cout << "Side note: You lost 3 hp.";
@@ -258,7 +266,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			{
 
 				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
-				board[hori][vert] = '.';
+				board[hori][vert] = ' ';
 				board[hori - 1][vert] = player;
 				hori = hori - 1;
 			}
@@ -266,13 +274,13 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 		else if (answer == "down")
 		{
 
-			if (board[hori + 1][vert] != 'w' && board[hori + 1][vert] != '?')
+			if (board[hori + 1][vert] != wall_h && board[hori + 1][vert] != '?')
 			{
-				board[hori][vert] = '.';
+				board[hori][vert] = ' ';
 				board[hori + 1][vert] = player;
 				hori = hori + 1;
 			}
-			else if (board[hori + 1][vert] == 'w')
+			else if (board[hori + 1][vert] == wall_h)
 			{
 				cout << "You ran into a wall, try a different direction." << endl;
 				cout << "Side note: You lost 3 hp.";
@@ -284,7 +292,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			{
 
 				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
-				board[hori][vert] = '.';
+				board[hori][vert] = ' ';
 				board[hori + 1][vert] = player;
 				hori = hori + 1;
 
@@ -293,14 +301,14 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 		}
 		else if (answer == "left")
 		{
-			if (board[hori][vert - 1] != 'w' && board[hori][vert - 1] != '?')
+			if (board[hori][vert - 1] != wall_v && board[hori][vert - 1] != '?')
 			{
-				board[hori][vert] = '.';
+				board[hori][vert] = ' ';
 				board[hori][vert - 1] = player;
 				vert = vert - 1;
 			}
 
-			else if (board[hori][vert - 1] == 'w')
+			else if (board[hori][vert - 1] == wall_v)
 			{
 				cout << "You ran into a wall, try a different direction." << endl;
 				cout << "Side note: You lost 3 hp.";
@@ -312,7 +320,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			{
 
 				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
-				board[hori][vert] = '.';
+				board[hori][vert] = ' ';
 				board[hori][vert - 1] = player;
 				vert = vert - 1;
 			}
@@ -320,13 +328,13 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 		}
 		else if (answer == "right")
 		{
-			if (board[hori][vert + 1] != 'w' && board[hori][vert + 1] != '?')
+			if (board[hori][vert + 1] != wall_v && board[hori][vert + 1] != '?')
 			{
-				board[hori][vert] = '.';
+				board[hori][vert] = ' ';
 				board[hori][vert + 1] = player;
 				vert = vert + 1;
 			}
-			else if (board[hori][vert + 1] == 'w')
+			else if (board[hori][vert + 1] == wall_v)
 			{
 				cout << "You ran into a wall, try a different direction." << endl;
 				cout << "Side note: You lost 3 hp.";
@@ -339,7 +347,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 
 				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
 
-				board[hori][vert] = '.';
+				board[hori][vert] = ' ';
 				board[hori][vert + 1] = player;
 				vert = vert + 1;
 			}

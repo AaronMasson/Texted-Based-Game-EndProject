@@ -1,8 +1,8 @@
 ﻿  Texted Based Game EndProject.cpp
 c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(156): warning C4309: 'initializing': truncation of constant value
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(447): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(472): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(470): warning C4101: 'hp': unreferenced local variable
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(547): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(455): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(480): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(478): warning C4101: 'hp': unreferenced local variable
+c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(555): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Texted Based Game EndProject.vcxproj -> C:\Users\adianda\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe
   Texted Based Game EndProject.vcxproj -> C:\Users\adianda\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.pdb (Full PDB)
