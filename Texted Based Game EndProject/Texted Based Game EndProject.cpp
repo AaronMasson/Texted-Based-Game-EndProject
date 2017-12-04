@@ -47,6 +47,7 @@ void combat(int &, int, int, int, bool &);
 int damage(int, int);
 void monster(int, int &, int &, string &, int &);
 void map();
+//void commands(string &, bool &, int &, int &, char &, bool &, bool &);
 
 // Decides what they will run into (items or monster)
 void huh(int &, int &, int &, int &, bool &);
@@ -490,7 +491,7 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 		creaturehp = 70;
 
 	}
-	if (yeet == 5)
+	/*if (yeet == 5)
 	{
 
 		munster = "Zachary Moore";
@@ -498,7 +499,7 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 		mindam = 18;
 		maxdam = 25;
 		creaturehp = 400;
-	}
+	}*/
 
 
 
