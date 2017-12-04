@@ -42,15 +42,15 @@ ostream& operator<<(ostream &stm, const COLOR &c)
 //=============================================================================================================================
 
 // Prototype Functions
-void basement(int &, int &, int &, int &, bool &, string &);
-void combat(int &, int, int, int, bool &, string &);
+void basement(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
+void combat(int &, int, int, int, bool &, string &, bool &, bool &, bool &);
 int damage(int, int);
 void monster(int, int &, int &, string &, int &);
 void map();
 //void commands(string &, bool &, int &, int &, char &, bool &, bool &);
 
 // Decides what they will run into (items or monster)
-void huh(int &, int &, int &, int &, bool &, string &);
+void huh(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
 
 
 int main()
@@ -64,6 +64,9 @@ int main()
 	int max = 11;
 	// =============
 	bool alive;
+	bool fight;
+	bool movement;
+	bool inventory;
 	static bool first = true;
 	int floor;
 //====================== Aaron Masson ==============================
@@ -113,13 +116,13 @@ int main()
 		{
 			cout << "Lets begin! " << endl;
 
-			basement(health, max, min, floor, alive, answer);
+			basement(health, max, min, floor, alive, answer, movement, fight, inventory);
 		}
 
 		else if (answer == "no")
 		{
 			cout << "Too bad " << endl;
-			basement(health, max, min, floor, alive, answer);
+			basement(health, max, min, floor, alive, answer, movement, fight, inventory);
 		}
 	}
 	if (alive == false && first == false)
@@ -136,7 +139,7 @@ int main()
 }
 
 
-void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer)
+void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory)
 {
 	
 	floor = 5;
@@ -157,7 +160,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	int j;
 
 	// For the while loop to allow constant movement until an enounter.
-	bool movement = true;
+	movement = true;
 
 
 	// allows movement 
@@ -257,7 +260,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			else if (board[hori - 1][vert] == '?')
 			{
 
-				huh(health, max, min, floor, alive,answer);
+				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
 				board[hori][vert] = '.';
 				board[hori - 1][vert] = player;
 				hori = hori - 1;
@@ -283,7 +286,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			else if (board[hori + 1][vert] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer);
+				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
 				board[hori][vert] = '.';
 				board[hori + 1][vert] = player;
 				hori = hori + 1;
@@ -311,7 +314,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			else if (board[hori][vert - 1] == '?')
 			{
 
-				huh(health, max, min, floor, alive,answer);
+				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
 				board[hori][vert] = '.';
 				board[hori][vert - 1] = player;
 				vert = vert - 1;
@@ -337,7 +340,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			else if (board[hori][vert + 1] == '?')
 			{
 
-				huh(health, max, min, floor, alive,answer);
+				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
 
 				board[hori][vert] = '.';
 				board[hori][vert + 1] = player;
@@ -352,7 +355,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 
 
 // Justin Marshall
-void combat(int &health, int min, int max, int floor, bool &alive, string &answer)
+void combat(int &health, int min, int max, int floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory)
 {
 
 	int creaturehp;
@@ -451,6 +454,8 @@ int damage(int min, int max)
 
 
 }
+
+
 void monster(int floor, int &maxdam, int &mindam, string &munster, int &creaturehp)
 {
 	int yeet;
@@ -529,7 +534,7 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 
 }
 
-void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answer)
+void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory)
 {
 	srand(time(NULL));
 
@@ -538,7 +543,7 @@ void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answe
 
 	if (uhh == 1)
 	{
-		combat(health, max, min, floor, alive, answer);
+		combat(health, max, min, floor, alive, answer, movement, fight, inventory);
 
 	}
 
