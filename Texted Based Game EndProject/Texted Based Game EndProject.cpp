@@ -1,6 +1,6 @@
 ﻿// Texted Based Game 
 // Player will move around in a 10/10 array fighting enemies and finding items trying to get to the door. 
-//There are 5 floors to move through to get to the final boss.
+//There are 3 floors to move through to get to the final boss.
 //Aaron Masson
 //5252
 
