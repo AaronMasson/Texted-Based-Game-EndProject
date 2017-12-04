@@ -149,6 +149,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	cout << "You awake in a damp cold room with nothing but a wooden sword and a mug (what a night eh). " << endl;
 	cout << "You hear a scream in the distance. " << endl;
 
+
 	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1
 	time_t t;
 	srand((unsigned)time(&t));
@@ -168,37 +169,34 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	int vert = 1;
 	int hori = 8;
 
-
 	char player = 'P';
 
-	char board[10][10] = {
-		{ 'w' , 'w' , 'w' , 'w' , 'D' , 'w' , 'w' , 'w' , 'w' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' ,'w' },
-
+	char board[10][10] = {	{ corner_ul, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
+							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+							{ corner_bl, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, corner_br }
 	};
 
 
-	for (i = 0; i < x; i++)
-	{
+	//for (i = 0; i < x; i++)
+	//{
 
-		for (j = 0; j < y; j++)
-		{
-			if (board[i][j] != 'w' || board[i][j] != 'D')
-			{
-				board[i][j] = '.';
-			}
+	//	for (j = 0; j < y; j++)
+	//	{
+	//		if (board[i][j] != 'w' && board[i][j] != 'D')
+	//		{
+	//			board[i][j] = '.';
+	//		}
 
-		}
+	//	}
 
-	}
+	//}
 
 
 	board[hori][vert] = player;
@@ -228,7 +226,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 		{
 			for (j = 0; j < y; j++)
 			{
-				cout << board[i][j] << " ";
+				cout << board[i][j];
 			}
 			cout << endl;
 		}
