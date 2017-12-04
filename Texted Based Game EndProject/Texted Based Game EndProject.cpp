@@ -187,12 +187,21 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	//for (i = 0; i < x; i++)
 	//{
 
+<<<<<<< HEAD
 	//	for (j = 0; j < y; j++)
 	//	{
 	//		if (board[i][j] != 'w' && board[i][j] != 'D')
 	//		{
 	//			board[i][j] = '.';
 	//		}
+=======
+		for (j = 0; j < y; j++)
+		{
+			if (board[i][j] != 'w' && board[i][j] != 'D')
+			{
+				board[i][j] = '.';
+			}
+>>>>>>> 14d5c73990bd633a85e67cc042b2291ae4e66564
 
 	//	}
 
@@ -375,40 +384,51 @@ void combat(int &health, int min, int max, int floor, bool &alive, string &answe
 
 	while (health > 0 && creaturehp > 0)
 	{
-		cout << "Choose what you want to do attack, flee, or use item : ";
-		cin >> answer;
-
-		if (answer == "attack")
-		{
-
-			damagedealt = damage(min, max);
-			creaturehp = creaturehp - damagedealt;
-
-			cout << "You deal " << red << damagedealt << white << " damage." << endl;
-
-		}
-		
-		else if (answer == "flee")
-		{
-			
-		}
-		else if (answer == "item")
-		{
-
-		}
-
-		if (creaturehp > 0) 
+		if (creature == "chandelier")
 		{
 			damagedealt = damage(cmin, cmax);
 			health = health - damagedealt;
-
-
+			creaturehp = creaturehp - 1;
 			cout << "The " << creature << " hit you for " << red << damagedealt << white << "." << endl;
 
 			cout << "You have " << health << " remaining." << endl << "The " << creature << " has " << creaturehp << " remaining." << endl;
 		}
-		Sleep(500);
-		
+		else
+		{
+			cout << "Choose what you want to do attack, flee, or use item : ";
+			cin >> answer;
+
+			if (answer == "attack")
+			{
+
+				damagedealt = damage(min, max);
+				creaturehp = creaturehp - damagedealt;
+
+				cout << "You deal " << red << damagedealt << white << " damage." << endl;
+
+			}
+
+			else if (answer == "flee")
+			{
+
+			}
+			else if (answer == "item")
+			{
+
+			}
+
+			if (creaturehp > 0)
+			{
+				damagedealt = damage(cmin, cmax);
+				health = health - damagedealt;
+
+
+				cout << "The " << creature << " hit you for " << red << damagedealt << white << "." << endl;
+
+				cout << "You have " << health << " remaining." << endl << "The " << creature << " has " << creaturehp << " remaining." << endl;
+			}
+			Sleep(500);
+		}
 	}
 
 	if (creaturehp <= 0)
@@ -460,8 +480,8 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 	int hp;
 
 	srand(time(NULL));
-
-	yeet = rand() % floor;
+	yeet = 3;
+	//yeet = rand() % floor;
 
 
 	if (yeet == 0)
@@ -501,9 +521,9 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 
 		munster = "chandelier";
 
-		mindam = 10;
-		maxdam = 16;
-		creaturehp = 65;
+		mindam = 20;
+		maxdam = 25;
+		creaturehp = 1;
 
 
 	}
@@ -607,4 +627,130 @@ void map()
 
 }
 
-//void commands(string &answer, bool &movement, int &hori, int &vert, char &player )
+//void commands(string &answer, bool &movement, int &hori, int &vert, char &player, bool &fight, bool &inventory)
+//{
+//	if (movement)
+//	{
+//			cout << "Which direction will you go? ";
+//		cin >> answer;
+//		while (answer != "up" && answer != "down" && answer != "left" && answer != "right")
+//		{
+//			cout << "Invalid. Please enter up or down or left or right. ";
+//			cin >> answer;
+//		}
+//
+//		if (answer == "up")
+//		{
+//			if (board[hori - 1][vert] != 'w' && board[hori - 1][vert] != '?') {
+//				board[hori][vert] = '.';
+//				board[hori - 1][vert] = player;
+//				hori = hori - 1;
+//			}
+//
+//			else if (board[hori - 1][vert] == 'w')
+//			{
+//				cout << "You ran into a wall, try a different direction." << endl;
+//				cout << "Side note: You lost 3 hp.";
+//				health = health - 3;
+//				Sleep(2000);
+//			}
+//
+//			else if (board[hori - 1][vert] == '?')
+//			{
+//
+//				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
+//				board[hori][vert] = '.';
+//				board[hori - 1][vert] = player;
+//				hori = hori - 1;
+//			}
+//		}
+//		else if (answer == "down")
+//		{
+//			
+//			if (board[hori + 1][vert] != 'w' && board[hori + 1][vert] != '?')
+//			{
+//				board[hori][vert] = '.';
+//				board[hori + 1][vert] = player;
+//				hori = hori + 1;
+//			}
+//			else if (board[hori + 1][vert] == 'w')
+//			{
+//				cout << "You ran into a wall, try a different direction." << endl;
+//				cout << "Side note: You lost 3 hp.";
+//				health = health - 3;
+//				Sleep(2000);
+//			}
+//
+//			else if (board[hori + 1][vert] == '?')
+//			{
+//
+//				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
+//				board[hori][vert] = '.';
+//				board[hori + 1][vert] = player;
+//				hori = hori + 1;
+//
+//			}
+//
+//		}
+//		else if (answer == "left")
+//		{
+//			if (board[hori][vert - 1] != 'w' && board[hori][vert - 1] != '?')
+//			{
+//				board[hori][vert] = '.';
+//				board[hori][vert - 1] = player;
+//				vert = vert - 1;
+//			}
+//
+//			else if (board[hori][vert - 1] == 'w')
+//			{
+//				cout << "You ran into a wall, try a different direction." << endl;
+//				cout << "Side note: You lost 3 hp.";
+//				health = health - 3;
+//				Sleep(2000);
+//			}
+//
+//			else if (board[hori][vert - 1] == '?')
+//			{
+//
+//				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
+//				board[hori][vert] = '.';
+//				board[hori][vert - 1] = player;
+//				vert = vert - 1;
+//			}
+//			
+//		}
+//		else if (answer == "right")
+//		{
+//			if (board[hori][vert + 1] != 'w' && board[hori][vert + 1] != '?')
+//			{
+//				board[hori][vert] = '.';
+//				board[hori][vert + 1] = player;
+//				vert = vert + 1;
+//			}
+//			else if (board[hori][vert + 1] == 'w')
+//			{
+//				cout << "You ran into a wall, try a different direction." << endl;
+//				cout << "Side note: You lost 3 hp.";
+//				health = health - 3;
+//				Sleep(2000);
+//			}
+//
+//			else if (board[hori][vert + 1] == '?')
+//			{
+//
+//				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
+//
+//				board[hori][vert] = '.';
+//				board[hori][vert + 1] = player;
+//				vert = vert + 1;
+//			}
+//
+//		}
+//		
+//		system("cls");
+//	}
+//	}
+//
+//
+//
+//}
