@@ -183,19 +183,19 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	{ corner_bl, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, corner_br }
 	};
 
-	for (i = 0; i < x; i++)
-	{
+	//for (i = 0; i < x; i++)
+	//{
 
-		for (j = 0; j < y; j++)
-		{
-			if (board[i][j] != 'w' && board[i][j] != 'D')
-			{
-				board[i][j] = '.';
-			}
+	//	for (j = 0; j < y; j++)
+	//	{
+	//		if (board[i][j] != 'w' && board[i][j] != 'D') // prevents printing of unicode/level design characters
+	//		{
+	//			board[i][j] = '.';
+	//		}
 
-		}
+	//	}
 
-	}
+	//}
 
 
 	board[hori][vert] = player;
