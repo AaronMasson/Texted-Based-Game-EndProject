@@ -1,8 +1,8 @@
 ﻿  Texted Based Game EndProject.cpp
-c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(150): warning C4309: 'initializing': truncation of constant value
-c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(402): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(425): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(423): warning C4101: 'hp': unreferenced local variable
-c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(500): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(151): warning C4309: 'initializing': truncation of constant value
+c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(411): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(434): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(432): warning C4101: 'hp': unreferenced local variable
+c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(509): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Texted Based Game EndProject.vcxproj -> C:\Users\amasson\Desktop\Texted Based Game EndProject\Debug\Texted Based Game EndProject.exe
   Texted Based Game EndProject.vcxproj -> C:\Users\amasson\Desktop\Texted Based Game EndProject\Debug\Texted Based Game EndProject.pdb (Full PDB)

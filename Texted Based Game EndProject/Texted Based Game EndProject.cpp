@@ -55,6 +55,7 @@ void huh(int &, int &, int &, int &, bool &);
 int main()
 {
 
+
 	int health = 100;
 
 	// Weapon damage
@@ -71,10 +72,10 @@ int main()
 
 	// Sets the color of ALL the text.
 	cout << white;
-	if (first)
+	if (health > 0)
 	{
 		alive = true;
-		first = false;
+		
 
 	}
 
@@ -84,7 +85,7 @@ int main()
 	}
 
 
-	if (alive) 
+	if (alive == true) 
 	{
 		cout << "Welcome to my program! " << endl;
 		cout << "Enter in your name: " << endl;
@@ -166,7 +167,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive)
 	char player = 'P';
 
 	char board[10][10] = {
-		{ 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' ,'w' },
+		{ 'w' , 'w' , 'w' , 'w' , 'D' , 'w' , 'w' , 'w' , 'w' ,'w' },
 		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
 		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
 		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
@@ -373,17 +374,25 @@ void combat(int &health, int min, int max, int floor, bool &alive)
 			creaturehp = creaturehp - damagedealt;
 
 			cout << "You deal " << red << damagedealt << white << " damage." << endl;
+
 		}
 
+			damagedealt = damage(cmin, cmax);
+			health = health - damagedealt;
 
-		damagedealt = damage(cmin, cmax);
-		health = health - damagedealt;
 
+			cout << "The " << creature << " hit you for " << red << damagedealt << white << "." << endl;
 
-		cout << "The " << creature << " hit you for " << red << damagedealt << white << "." << endl;
-
-		cout << "You have " << health << " remaining." << endl << "The " << creature << " has " << creaturehp << " remaining." << endl;
+			cout << "You have " << health << " remaining." << endl << "The " << creature << " has " << creaturehp << " remaining." << endl;
 		
+		if (action == "flee")
+		{
+			
+		}
+		if (action == "item")
+		{
+
+		}
 	}
 
 
@@ -433,7 +442,7 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 		munster = "imp";
 		mindam = 1;
 		maxdam = 5;
-		creaturehp = 250;
+		creaturehp = 150;
 
 
 	}
@@ -488,7 +497,7 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 
 		mindam = 18;
 		maxdam = 25;
-		creaturehp = 1000000;
+		creaturehp = 400;
 	}
 
 
