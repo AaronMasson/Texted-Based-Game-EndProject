@@ -73,10 +73,11 @@ int main()
 
 	// Sets the color of ALL the text.
 	cout << white;
-	if (health > 0)
+	if (first && health > 0)
 	{
 		alive = true;
 		
+		first = false;
 
 	}
 
@@ -121,7 +122,7 @@ int main()
 			basement(health, max, min, floor, alive, answer);
 		}
 	}
-	if (alive == false)
+	if (alive == false && first == false)
 	{
 		cout << "You died" << endl;
 
@@ -138,7 +139,7 @@ int main()
 void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer)
 {
 	
-	floor = 1;
+	floor = 5;
 	Sleep(2000);
 	system("cls");
 
@@ -229,7 +230,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			cout << endl;
 		}
 
-		cout << "Which answer will you go? ";
+		cout << "Which direction will you go? ";
 		cin >> answer;
 		while (answer != "up" && answer != "down" && answer != "left" && answer != "right")
 		{
@@ -247,7 +248,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 
 			else if (board[hori - 1][vert] == 'w')
 			{
-				cout << "You ran into a wall, try a different answer." << endl;
+				cout << "You ran into a wall, try a different direction." << endl;
 				cout << "Side note: You lost 3 hp.";
 				health = health - 3;
 				Sleep(2000);
@@ -273,7 +274,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			}
 			else if (board[hori + 1][vert] == 'w')
 			{
-				cout << "You ran into a wall, try a different answer." << endl;
+				cout << "You ran into a wall, try a different direction." << endl;
 				cout << "Side note: You lost 3 hp.";
 				health = health - 3;
 				Sleep(2000);
@@ -301,7 +302,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 
 			else if (board[hori][vert - 1] == 'w')
 			{
-				cout << "You ran into a wall, try a different answer." << endl;
+				cout << "You ran into a wall, try a different direction." << endl;
 				cout << "Side note: You lost 3 hp.";
 				health = health - 3;
 				Sleep(2000);
@@ -327,7 +328,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			}
 			else if (board[hori][vert + 1] == 'w')
 			{
-				cout << "You ran into a wall, try a different answer." << endl;
+				cout << "You ran into a wall, try a different direction." << endl;
 				cout << "Side note: You lost 3 hp.";
 				health = health - 3;
 				Sleep(2000);
@@ -395,19 +396,29 @@ void combat(int &health, int min, int max, int floor, bool &alive, string &answe
 
 		}
 
-		damagedealt = damage(cmin, cmax);
-		health = health - damagedealt;
+		if (creaturehp > 0) 
+		{
+			damagedealt = damage(cmin, cmax);
+			health = health - damagedealt;
 
 
-		cout << "The " << creature << " hit you for " << red << damagedealt << white << "." << endl;
+			cout << "The " << creature << " hit you for " << red << damagedealt << white << "." << endl;
 
-		cout << "You have " << health << " remaining." << endl << "The " << creature << " has " << creaturehp << " remaining." << endl;
+			cout << "You have " << health << " remaining." << endl << "The " << creature << " has " << creaturehp << " remaining." << endl;
+		}
+		Sleep(500);
+		
 	}
 
 	if (creaturehp <= 0)
 	{
 		cout << "You defeated the " << creature << ". Good Job!" << endl;
 		Sleep(1500);
+	}
+
+	else if (health <= 0)
+	{
+		alive = false;
 	}
 
 }
@@ -456,7 +467,7 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 		munster = "imp";
 		mindam = 1;
 		maxdam = 5;
-		creaturehp = 150;
+		creaturehp = 30;
 
 
 	}
@@ -593,4 +604,4 @@ void map()
 
 }
 
-//void commands(string &answer, bool &movement, int &hori, int &vert, )
+//void commands(string &answer, bool &movement, int &hori, int &vert, char &player )
