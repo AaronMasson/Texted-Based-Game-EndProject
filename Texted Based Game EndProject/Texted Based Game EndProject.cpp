@@ -69,7 +69,7 @@ int main()
 	bool inventory;
 	static bool first = true;
 	int floor;
-//====================== Aaron Masson ==============================
+	//====================== Aaron Masson ==============================
 	string name;
 	string answer;
 	bool valid = true;
@@ -79,7 +79,7 @@ int main()
 	if (first && health > 0)
 	{
 		alive = true;
-		
+
 		first = false;
 
 	}
@@ -90,7 +90,7 @@ int main()
 	}
 
 
-	if (alive == true) 
+	if (alive == true)
 	{
 		cout << "Welcome to my program! " << endl;
 		cout << "Enter in your name: " << endl;
@@ -135,20 +135,19 @@ int main()
 	}
 
 	system("pause");
-    return 0;
+	return 0;
 }
 
 
 void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory)
 {
-	
+
 	floor = 5;
 	Sleep(2000);
 	system("cls");
 
 	cout << "You awake in a damp cold room with nothing but a wooden sword and a mug (what a night eh). " << endl;
 	cout << "You hear a scream in the distance. " << endl;
-
 
 	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1
 	time_t t;
@@ -169,43 +168,34 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	int vert = 1;
 	int hori = 8;
 
+
 	char player = 'P';
 
-	char board[10][10] = {	{ corner_ul, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
-							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-							{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-							{ corner_bl, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, corner_br }
+	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ corner_bl, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, corner_br }
 	};
 
+	for (i = 0; i < x; i++)
+	{
 
-	//for (i = 0; i < x; i++)
-	//{
-
-<<<<<<< HEAD
-	//	for (j = 0; j < y; j++)
-	//	{
-	//		if (board[i][j] != 'w' && board[i][j] != 'D')
-	//		{
-	//			board[i][j] = '.';
-	//		}
-=======
 		for (j = 0; j < y; j++)
 		{
 			if (board[i][j] != 'w' && board[i][j] != 'D')
 			{
 				board[i][j] = '.';
 			}
->>>>>>> 14d5c73990bd633a85e67cc042b2291ae4e66564
 
-	//	}
+		}
 
-	//}
+	}
 
 
 	board[hori][vert] = player;
@@ -228,14 +218,14 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	}
 
 
-	while (movement && alive) 
+	while (movement && alive)
 	{
-		
+
 		for (i = 0; i < x; i++)
 		{
 			for (j = 0; j < y; j++)
 			{
-				cout << board[i][j];
+				cout << board[i][j] << " ";
 			}
 			cout << endl;
 		}
@@ -275,7 +265,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 		}
 		else if (answer == "down")
 		{
-			
+
 			if (board[hori + 1][vert] != 'w' && board[hori + 1][vert] != '?')
 			{
 				board[hori][vert] = '.';
@@ -326,7 +316,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 				board[hori][vert - 1] = player;
 				vert = vert - 1;
 			}
-			
+
 		}
 		else if (answer == "right")
 		{
@@ -355,7 +345,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			}
 
 		}
-		
+
 		system("cls");
 	}
 }
@@ -541,11 +531,11 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 	/*if (yeet == 5)
 	{
 
-		munster = "Zachary Moore";
+	munster = "Zachary Moore";
 
-		mindam = 18;
-		maxdam = 25;
-		creaturehp = 400;
+	mindam = 18;
+	maxdam = 25;
+	creaturehp = 400;
 	}*/
 
 
