@@ -141,7 +141,7 @@ int main()
 
 void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory)
 {
-
+	bool flee = true;
 	floor = 5;
 	Sleep(2000);
 	system("cls");
@@ -368,6 +368,7 @@ void combat(int &health, int min, int max, int floor, bool &alive, string &answe
 	int damagedealt;
 	int cmin;
 	int cmax;
+	
 
 
 
@@ -408,7 +409,8 @@ void combat(int &health, int min, int max, int floor, bool &alive, string &answe
 
 			else if (answer == "flee")
 			{
-
+			
+				
 			}
 			else if (answer == "item")
 			{
@@ -478,8 +480,8 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 	int hp;
 
 	srand(time(NULL));
-	yeet = 3;
-	//yeet = rand() % floor;
+	
+	yeet = rand() % floor;
 
 
 	if (yeet == 0)
