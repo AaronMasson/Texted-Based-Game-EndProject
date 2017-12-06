@@ -73,6 +73,7 @@ int main()
 	string name;
 	string answer;
 	bool valid = true;
+	
 
 	// Sets the color of ALL the text.
 	cout << white;
@@ -92,7 +93,7 @@ int main()
 
 	if (alive == true)
 	{
-		cout << "Welcome to my program! " << endl;
+		cout << "Welcome to The Dark Tower! " << endl;
 		cout << "Enter in your name: " << endl;
 		getline(cin, name);
 		cout << "Well " << name << ", get ready for a grand adventure through a dark and dangerous tower! " << endl;
@@ -141,7 +142,7 @@ int main()
 
 void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory)
 {
-	bool flee = true;
+	
 	floor = 5;
 	Sleep(2000);
 	system("cls");
@@ -409,8 +410,7 @@ void combat(int &health, int min, int max, int floor, bool &alive, string &answe
 
 			else if (answer == "flee")
 			{
-			
-				
+				basement(health, max, min, floor, alive, answer, movement, fight, inventory);
 			}
 			else if (answer == "item")
 			{
