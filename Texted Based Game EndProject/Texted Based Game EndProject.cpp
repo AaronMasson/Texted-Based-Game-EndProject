@@ -57,7 +57,7 @@ int main()
 {
 
 
-	int health = 3;
+	int health = 100;
 
 	// Weapon damage
 	int min = 5;
@@ -131,8 +131,25 @@ int main()
 		cout << "You died" << endl;
 
 		Sleep(2000);
-		cout << endl << endl << endl << "Sorry" << endl;
-		alive = false;
+		cout << endl << endl << endl << "Sorry, so uhh you want to try again?" << endl;
+		cin >> answer;
+
+		if (answer == "yes")
+		{
+			cout << "Lets begin \nagain... " << endl;
+			alive = true;
+			health = 100;
+			basement(health, max, min, floor, alive, answer, movement, fight, inventory);
+
+		}
+		else
+		{
+			cout << "Alright, sorry you died. \nMaybe next time don't die...";
+			Sleep(500);
+			//insert ending
+		}
+		
+		
 	}
 	else if (alive && !first)
 	{
@@ -143,7 +160,9 @@ int main()
 		
 		if (answer == "yes")
 		{
-			first = true;
+			cout << "Lets begin... again... " << endl;
+			health = 100;
+			basement(health, max, min, floor, alive, answer, movement, fight, inventory);
 			
 		}
 		else
@@ -379,6 +398,11 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 		}
 
 		system("cls");
+	}
+
+	if (health <= 0)
+	{
+		alive = false;
 	}
 }
 
