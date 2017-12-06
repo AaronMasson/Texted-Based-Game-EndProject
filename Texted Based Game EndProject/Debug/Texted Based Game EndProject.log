@@ -1,2 +1,8 @@
 ﻿  Texted Based Game EndProject.cpp
-c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp : fatal error C1853: 'Debug\Texted Based Game EndProject.pch' precompiled header file is from a previous version of the compiler, or the precompiled header is C++ and you are using it from C (or vice versa)
+c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(150): error C2082: redefinition of formal parameter 'flee'
+c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(165): warning C4309: 'initializing': truncation of constant value
+c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(277): error C2660: 'huh': function does not take 10 arguments
+c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(159): error C2043: illegal break
+c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(468): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(493): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(568): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
