@@ -57,7 +57,7 @@ int main()
 {
 
 
-	int health = 100;
+	int health = 3;
 
 	// Weapon damage
 	int min = 5;
@@ -242,9 +242,9 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	}
 
 
-	while (movement && alive)
+	while (movement && alive && health > 0)
 	{
-
+		
 		for (i = 0; i < x; i++)
 		{
 			for (j = 0; j < y; j++)
@@ -656,11 +656,124 @@ void map()
 
 }
 
-void commands(string &answer, int &health, char board, bool &movement, int &hori, int &vert, char &player, bool &fight, bool &inventory)
-{
-
-
-
-
-
-}
+//void commands(string &answer, int &health, char board, bool &movement, int &hori, int &vert, char &player, bool &fight, bool &inventory)
+//{
+//	while (movement) 
+//	{
+//		while (answer != "up" && answer != "down" && answer != "left" && answer != "right")
+//		{
+//			cout << "Invalid. Please enter up or down or left or right. ";
+//			cin >> answer;
+//		}
+//
+//		if (answer == "up")
+//		{
+//			if (board[hori - 1][vert] != wall_h && board[hori - 1][vert] != '?') {
+//				board[hori][vert] = ' ';
+//				board[hori - 1][vert] = player;
+//				hori = hori - 1;
+//			}
+//
+//			else if (board[hori - 1][vert] == wall_h)
+//			{
+//				cout << "You ran into a wall, try a different direction." << endl;
+//				cout << "Side note: You lost 3 hp.";
+//				health = health - 3;
+//				Sleep(2000);
+//			}
+//
+//			else if (board[hori - 1][vert] == '?')
+//			{
+//
+//				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
+//				board[hori][vert] = ' ';
+//				board[hori - 1][vert] = player;
+//				hori = hori - 1;
+//			}
+//		}
+//		else if (answer == "down")
+//		{
+//
+//			if (board[hori + 1][vert] != wall_h && board[hori + 1][vert] != '?')
+//			{
+//				board[hori][vert] = ' ';
+//				board[hori + 1][vert] = player;
+//				hori = hori + 1;
+//			}
+//			else if (board[hori + 1][vert] == wall_h)
+//			{
+//				cout << "You ran into a wall, try a different direction." << endl;
+//				cout << "Side note: You lost 3 hp.";
+//				health = health - 3;
+//				Sleep(2000);
+//			}
+//
+//			else if (board[hori + 1][vert] == '?')
+//			{
+//
+//				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
+//				board[hori][vert] = ' ';
+//				board[hori + 1][vert] = player;
+//				hori = hori + 1;
+//
+//			}
+//
+//		}
+//		else if (answer == "left")
+//		{
+//			if (board[hori][vert - 1] != wall_v && board[hori][vert - 1] != '?')
+//			{
+//				board[hori][vert] = ' ';
+//				board[hori][vert - 1] = player;
+//				vert = vert - 1;
+//			}
+//
+//			else if (board[hori][vert - 1] == wall_v)
+//			{
+//				cout << "You ran into a wall, try a different direction." << endl;
+//				cout << "Side note: You lost 3 hp.";
+//				health = health - 3;
+//				Sleep(2000);
+//			}
+//
+//			else if (board[hori][vert - 1] == '?')
+//			{
+//
+//				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
+//				board[hori][vert] = ' ';
+//				board[hori][vert - 1] = player;
+//				vert = vert - 1;
+//			}
+//
+//		}
+//		else if (answer == "right")
+//		{
+//			if (board[hori][vert + 1] != wall_v && board[hori][vert + 1] != '?')
+//			{
+//				board[hori][vert] = ' ';
+//				board[hori][vert + 1] = player;
+//				vert = vert + 1;
+//			}
+//			else if (board[hori][vert + 1] == wall_v)
+//			{
+//				cout << "You ran into a wall, try a different direction." << endl;
+//				cout << "Side note: You lost 3 hp.";
+//				health = health - 3;
+//				Sleep(2000);
+//			}
+//
+//			else if (board[hori][vert + 1] == '?')
+//			{
+//
+//				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
+//
+//				board[hori][vert] = ' ';
+//				board[hori][vert + 1] = player;
+//				vert = vert + 1;
+//			}
+//
+//		}
+//
+//		system("cls");
+//	}
+//}
