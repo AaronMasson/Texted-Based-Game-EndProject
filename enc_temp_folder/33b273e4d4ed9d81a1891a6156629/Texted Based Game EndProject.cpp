@@ -430,14 +430,6 @@ void combat(int &health, int min, int max, int floor, bool &alive, string &answe
 			{
 				
 				cout << "You flee the battle and you hear the other creatures moving in the distance. " << endl;
-				
-				damagedealt = damage(cmin, cmax);
-				health = health - damagedealt;
-
-
-				cout << "The " << creature << " hit you for " << red << damagedealt << white << "." << endl;
-
-				cout << "You have " << health << " remaining." << endl;
 				break;
 			
 			}
