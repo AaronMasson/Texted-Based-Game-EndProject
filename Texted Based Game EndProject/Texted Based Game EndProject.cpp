@@ -48,6 +48,9 @@ int damage(int, int);
 void monster(int, int &, int &, string &, int &);
 void map();
 void commands(string &, int &, char, bool &, int &, int &, char &, bool &, bool &);
+void inventoryscreen(char[][5], int, int);
+void pickUp(char[][5], int, int, int, char[][3]);
+void useitem(char[][5], char[][3], int, int, int, char);
 
 // Decides what they will run into (items or monster)
 void huh(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
@@ -66,13 +69,58 @@ int main()
 	bool alive;
 	bool fight;
 	bool movement;
-	bool inventory;
+	bool pockets;
 	static bool first = true;
 	int floor;
 	//====================== Aaron Masson ==============================
 	string name;
 	string answer;
 	bool valid = true;
+	// Dianda
+	string userCommand;
+	int itemSel;
+
+	const int invRows = 8, invCols = 5;
+	char inventory[invRows][invCols] = {	{ ' ', ' ', ' ', ' ', ' ' },
+											{ ' ', ' ', ' ', ' ', ' ' },
+											{ ' ', ' ', ' ', ' ', ' ' },
+											{ ' ', ' ', ' ', ' ', ' ' },
+											{ ' ', ' ', ' ', ' ', ' ' },
+											{ ' ', ' ', ' ', ' ', ' ' },
+											{ ' ', ' ', ' ', ' ', ' ' },
+											{ ' ', ' ', ' ', ' ', ' ' } };
+
+	//item list
+	char adminitem = 236;
+	char itemList[5][3]	{	{ 2, 2, 'P' },			// potion
+							{ 2, 1, 'B' },			// loafy bread
+							{ 6, 1, 'S' },			// actual stabber/sword
+							{ 1, 1, adminitem },	// feckin normies REEEEEE
+							{ 1, 1, 'M' }			// das a mug
+						};
+
+	inventory[7][4] = 'M';
+
+	/*cout << "inv displays inventory\npickup begins pickuptest\nexitinv ends program\nInput selection: "; IMPLEMENT MEEEEE
+	cin >> userCommand;
+	while (userCommand != "exitinv") {
+		if (userCommand == "inv") {
+			inventoryscreen(inventory, invRows, invCols);
+		}
+		else if (userCommand == "pickup") {
+			cout << "What is item to pickup? ";
+			cin >> itemSel;
+			pickUp(inventory, invRows, invCols, itemSel, itemList);
+		}
+		else if (userCommand == "useitem") {
+			cout << "what is the item to be used? ";
+			cin >> itemSel;
+			useitem(inventory, itemList, invRows, invCols, itemSel, adminitem);
+		}
+		cout << "Enter endinv to end program: ";
+		cin >> userCommand;
+	}*/
+	// Dianda end
 	
 
 	// Sets the color of ALL the text.
@@ -117,13 +165,13 @@ int main()
 		{
 			cout << "Lets begin! " << endl;
 
-			basement(health, max, min, floor, alive, answer, movement, fight, inventory);
+			basement(health, max, min, floor, alive, answer, movement, fight, pockets);
 		}
 
 		else if (answer == "no")
 		{
 			cout << "Too bad " << endl;
-			basement(health, max, min, floor, alive, answer, movement, fight, inventory);
+			basement(health, max, min, floor, alive, answer, movement, fight, pockets);
 		}
 	}
 	if (alive == false && first == false)
@@ -139,7 +187,7 @@ int main()
 			cout << "Lets begin \nagain... " << endl;
 			alive = true;
 			health = 100;
-			basement(health, max, min, floor, alive, answer, movement, fight, inventory);
+			basement(health, max, min, floor, alive, answer, movement, fight, pockets);
 
 		}
 		else
@@ -162,7 +210,7 @@ int main()
 		{
 			cout << "Lets begin... again... " << endl;
 			health = 100;
-			basement(health, max, min, floor, alive, answer, movement, fight, inventory);
+			basement(health, max, min, floor, alive, answer, movement, fight, pockets);
 			
 		}
 		else
@@ -177,6 +225,179 @@ int main()
 	return 0;
 }
 
+void inventoryscreen(char inventory[][5], int invRows, int invCols) // Dianda
+{
+	system("cls");
+	cout << "Backpack:\n";
+	for (int x = 0; x <invRows; x++)
+	{
+		for (int y = 0; y<invCols; y++)
+		{
+			cout << "[" << inventory[x][y] << "]";
+		}
+		cout << endl;
+	}
+}
+
+void pickUp(char inventory[][5], int invRows, int invCols, int itemSel, char itemList[][3]) // Dianda
+{
+	int itemSizeX;
+	int itemSizeY;
+	int posx;
+	int posy;
+	int itemC1;
+	int itemC2;
+	int counterX;
+	int counterY;
+	int posyCounter;
+	int posxCounter;
+
+	itemSizeX = itemList[itemSel][0];
+	itemSizeY = itemList[itemSel][1];
+
+	posx = 0; posxCounter = 0; posy = 0; posyCounter = 0; counterX = 0; counterY = 0; itemC1 = 0; itemC2 = 0;
+	system("cls");
+	cout << "Backpack:\n";
+	for (int x = 0; x <invRows; x++)
+	{
+		for (int y = 0; y<invCols; y++)
+		{
+			cout << "[" << inventory[x][y] << "]";
+		}
+		cout << endl;
+	}
+
+	cout << "Where would you like to place the item? X position: ";
+	cin >> posx;
+	cout << "                                        Y position: ";
+	cin >> posy;
+	posxCounter = posx;
+
+	for (counterX = 0; counterX < itemSizeX; counterX++) { // inv space test
+		posyCounter = posy;
+		for (counterY = 0; counterY < itemSizeY; counterY++) {
+			if (inventory[posxCounter][posyCounter] == ' ' && posyCounter < 5) {
+
+			}
+			else {
+				cout << "Required inventory space is not empty.\n";
+				cout << "Where would you like to place the item? X position: ";
+				cin >> posx;
+				cout << "                                        Y position: ";
+				cin >> posy;
+				posxCounter = posx;
+			}
+
+			posyCounter++;
+		}
+		posxCounter++;
+	}
+
+	posyCounter = 0; posxCounter = posx;
+
+	for (counterX = 0; counterX < itemSizeX; counterX++) { // placement
+		posyCounter = posy;
+		for (counterY = 0; counterY < itemSizeY; counterY++) {
+			inventory[posxCounter][posyCounter] = itemList[itemSel][2];
+
+			posyCounter++;
+		}
+		posxCounter++;
+	}
+	system("cls");
+	cout << "The item was placed at position (" << posx << "), (" << posy << ")\nBackpack:\n";
+	for (int x = 0; x <invRows; x++)
+	{
+		for (int y = 0; y<invCols; y++)
+		{
+			cout << "[" << inventory[x][y] << "]";
+		}
+		cout << endl;
+	}
+}
+
+void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols, int itemSel, char adminitem) // Dianda
+{
+	int itemcounter = 0;
+
+	if (itemSel == 0) { // item P
+		for (int x = 0; x < invRows; x++)
+		{
+			for (int y = 0; y < invCols; y++)
+			{
+				if (inventory[x][y] == 'P' && itemcounter < 4) {
+					inventory[x][y] = ' ';
+					itemcounter++;
+				}
+			}
+			cout << endl;
+		}
+	}
+	if (itemSel == 1); { // item B
+		for (int x = 0; x < invRows; x++)
+		{
+			for (int y = 0; y < invCols; y++)
+			{
+				if (inventory[x][y] == 'B' && itemcounter < 2) {
+					inventory[x][y] = ' ';
+					itemcounter++;
+				}
+			}
+			cout << endl;
+		}
+	}
+	if (itemSel == 2); { // item S
+		for (int x = 0; x < invRows; x++)
+		{
+			for (int y = 0; y < invCols; y++)
+			{
+				if (inventory[x][y] == 'S' && itemcounter < 6) {
+					inventory[x][y] = ' ';
+					itemcounter++;
+				}
+			}
+			cout << endl;
+		}
+	}
+	if (itemSel == 3); { // item ∞
+		for (int x = 0; x < invRows; x++)
+		{
+			for (int y = 0; y < invCols; y++)
+			{
+				if (inventory[x][y] == adminitem && itemcounter < 1) {
+					inventory[x][y] = ' ';
+					itemcounter++;
+				}
+			}
+			cout << endl;
+		}
+	}
+	if (itemSel == 4); { // item M
+		for (int x = 0; x < invRows; x++)
+		{
+			for (int y = 0; y < invCols; y++)
+			{
+				if (inventory[x][y] == 'M' && itemcounter < 1) {
+					inventory[x][y] = ' ';
+					itemcounter++;
+				}
+			}
+			cout << endl;
+		}
+	}
+
+	system("cls");
+	cout << "Backpack:\n";
+	for (int x = 0; x <invRows; x++)
+	{
+		for (int y = 0; y<invCols; y++)
+		{
+			cout << "[" << inventory[x][y] << "]";
+		}
+		cout << endl;
+	}
+
+}
 
 void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory)
 {
