@@ -1,8 +1,9 @@
 ﻿  Texted Based Game EndProject.cpp
-c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(150): error C2082: redefinition of formal parameter 'flee'
-c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(165): warning C4309: 'initializing': truncation of constant value
-c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(277): error C2660: 'huh': function does not take 10 arguments
-c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(159): error C2043: illegal break
-c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(468): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(493): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\amasson\desktop\texted based game endproject\texted based game endproject\texted based game endproject.cpp(568): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(161): warning C4309: 'initializing': truncation of constant value
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(464): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(489): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(487): warning C4101: 'hp': unreferenced local variable
+c:\users\jmarshall34828\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(564): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  LINK : C:\Users\jmarshall34828\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe not found or not built by the last incremental link; performing full link
+  Texted Based Game EndProject.vcxproj -> C:\Users\jmarshall34828\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe
+  Texted Based Game EndProject.vcxproj -> C:\Users\jmarshall34828\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.pdb (Full PDB)

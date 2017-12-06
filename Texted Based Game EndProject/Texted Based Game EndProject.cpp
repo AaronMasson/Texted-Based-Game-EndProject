@@ -140,20 +140,19 @@ int main()
 }
 
 
-void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory, bool &flee)
+void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory)
 {
 	
 	floor = 5;
 	Sleep(3000);
 	system("cls");
 	static bool first = true;
-	bool flee = true;
 	
-	if (flee = true)
-	{
-		cout << "You awake in a damp cold room with nothing but a wooden sword and a mug (what a night eh). " << endl;
-		cout << "You hear a scream in the distance. " << endl;
-	}
+	
+	
+	cout << "You awake in a damp cold room with nothing but a wooden sword and a mug (what a night eh). " << endl;
+	cout << "You hear a scream in the distance. " << endl;
+
 	
 	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1
 	time_t t;
@@ -271,7 +270,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			else if (board[hori - 1][vert] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, fight, inventory, flee);
+				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
 				board[hori][vert] = ' ';
 				board[hori - 1][vert] = player;
 				hori = hori - 1;
@@ -366,7 +365,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 
 
 // Justin Marshall
-void combat(int &health, int min, int max, int floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory, bool &flee)
+void combat(int &health, int min, int max, int floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory)
 {
 
 	int creaturehp;
@@ -415,9 +414,9 @@ void combat(int &health, int min, int max, int floor, bool &alive, string &answe
 
 			else if (answer == "flee")
 			{
-				flee = false;
+				
 				cout << "You flee the battle and you hear the other creatures moving in the distance. " << endl;
-				basement(health, max, min, floor, alive, answer, movement, fight, inventory, flee);
+				break;
 			
 			}
 			else if (answer == "item")
@@ -560,7 +559,7 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 
 }
 
-void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory, bool &flee)
+void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory)
 {
 	srand(time(NULL));
 
@@ -569,7 +568,7 @@ void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answe
 
 	if (uhh == 1)
 	{
-		combat(health, max, min, floor, alive, answer, movement, fight, inventory, flee);
+		combat(health, max, min, floor, alive, answer, movement, fight, inventory);
 
 	}
 
