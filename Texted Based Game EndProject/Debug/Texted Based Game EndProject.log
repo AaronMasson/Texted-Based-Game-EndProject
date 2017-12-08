@@ -1,14 +1,14 @@
 ﻿  Texted Based Game EndProject.cpp
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(94): warning C4309: 'initializing': truncation of constant value
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(81): warning C4101: 'itemSel': unreferenced local variable
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(316): warning C4390: ';': empty controlled statement found; is this the intent?
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(329): warning C4390: ';': empty controlled statement found; is this the intent?
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(342): warning C4390: ';': empty controlled statement found; is this the intent?
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(355): warning C4390: ';': empty controlled statement found; is this the intent?
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(400): warning C4309: 'initializing': truncation of constant value
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(711): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(736): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(734): warning C4101: 'hp': unreferenced local variable
-c:\users\adianda\documents\github\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(811): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Texted Based Game EndProject.vcxproj -> C:\Users\adianda\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe
-  Texted Based Game EndProject.vcxproj -> C:\Users\adianda\Documents\GitHub\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.pdb (Full PDB)
+c:\users\aaron\documents\github\texted-based-game-endproject-master\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(94): warning C4309: 'initializing': truncation of constant value
+c:\users\aaron\documents\github\texted-based-game-endproject-master\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(81): warning C4101: 'itemSel': unreferenced local variable
+c:\users\aaron\documents\github\texted-based-game-endproject-master\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(337): warning C4390: ';': empty controlled statement found; is this the intent?
+c:\users\aaron\documents\github\texted-based-game-endproject-master\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(350): warning C4390: ';': empty controlled statement found; is this the intent?
+c:\users\aaron\documents\github\texted-based-game-endproject-master\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(363): warning C4390: ';': empty controlled statement found; is this the intent?
+c:\users\aaron\documents\github\texted-based-game-endproject-master\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(376): warning C4390: ';': empty controlled statement found; is this the intent?
+c:\users\aaron\documents\github\texted-based-game-endproject-master\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(421): warning C4309: 'initializing': truncation of constant value
+c:\users\aaron\documents\github\texted-based-game-endproject-master\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(734): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\aaron\documents\github\texted-based-game-endproject-master\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(759): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\aaron\documents\github\texted-based-game-endproject-master\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(757): warning C4101: 'hp': unreferenced local variable
+c:\users\aaron\documents\github\texted-based-game-endproject-master\texted-based-game-endproject\texted based game endproject\texted based game endproject.cpp(834): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Texted Based Game EndProject.vcxproj -> C:\Users\Aaron\Documents\GitHub\Texted-Based-Game-EndProject-master\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.exe
+  Texted Based Game EndProject.vcxproj -> C:\Users\Aaron\Documents\GitHub\Texted-Based-Game-EndProject-master\Texted-Based-Game-EndProject\Debug\Texted Based Game EndProject.pdb (Full PDB)

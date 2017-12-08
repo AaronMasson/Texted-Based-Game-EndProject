@@ -125,6 +125,7 @@ int main()
 
 	// Sets the color of ALL the text.
 	cout << white;
+	// Masson
 	if (first && health > 0)
 	{
 		alive = true;
@@ -223,7 +224,7 @@ int main()
 
 	system("pause");
 	return 0;
-}
+}// masson end
 
 void inventoryscreen(char inventory[][5], int invRows, int invCols) // Dianda
 {
@@ -435,7 +436,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 
 	char player = 'P';
 	// Dianda start
-	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
+	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, door_v, wall_h, wall_h, wall_h, wall_h, corner_ur },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
@@ -675,6 +676,7 @@ void combat(int &health, int min, int max, int floor, bool &alive, string &answe
 			{
 				
 				cout << "You flee the battle and you hear the other creatures moving in the distance. " << endl;
+				Sleep(2000);
 				
 				damagedealt = damage(cmin, cmax);
 				health = health - damagedealt;
@@ -683,6 +685,7 @@ void combat(int &health, int min, int max, int floor, bool &alive, string &answe
 				cout << "The " << creature << " hit you for " << red << damagedealt << white << "." << endl;
 
 				cout << "You have " << health << " remaining." << endl;
+				Sleep(2000);
 				break;
 			
 			}
