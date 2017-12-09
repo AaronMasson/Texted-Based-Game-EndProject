@@ -45,8 +45,10 @@ ostream& operator<<(ostream &stm, const COLOR &c)
 
 // Levels
 void basement(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
-void ground_floor();
-
+void ground_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
+void second_story(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
+void third_story(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
+void finale(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
 // Levels End
 
 void combat(int &, int, int, int, bool &, string &, bool &, bool &, bool &);
@@ -403,10 +405,13 @@ void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols, 
 
 }
 
-void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &inventory)
+
+
+// =========================================================== Levels =================================================================================
+void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &pockets)
 {
 	
-	floor = 5;
+	floor = 1;
 	Sleep(3000);
 	system("cls");
 	static bool first = true;
@@ -515,7 +520,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			cin >> answer;
 		}
 
-		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, inventory);
+		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, pockets);
 
 		system("cls");
 	}
@@ -524,15 +529,37 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	{
 		alive = false;
 	}
-	/*else if (level_complete)
+	else if (level_complete)
 	{
-		ground_floor();
-	}*/
+		ground_floor(health, max, min, floor, alive, answer, movement, level_complete, pockets);
+	}
 }
 
+void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &pockets)
+{
+
+
+}
+
+void second_story(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &pockets)
+{
+
+
+}
+void third_story(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &pockets)
+{
+
+
+}
+void finale(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &pockets)
+{
+
+
+}
+//========================================================= End of Levels ==============================================================================
 
 // Justin Marshall
-void combat(int &health, int min, int max, int floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory)
+void combat(int &health, int min, int max, int floor, bool &alive, string &answer, bool &movement, bool &fight, bool &pockets)
 {
 
 	int creaturehp;
@@ -793,12 +820,14 @@ void map()
 
 }
 
-void commands(string &answer, int &health, bool &alive, int &floor, char board[][10], bool &movement, int &hori, int &vert, char &player, bool &level_complete, int &max, int &min, bool &inventory)
+void commands(string &answer, int &health, bool &alive, int &floor, char board[][10], bool &movement, int &hori, int &vert, char &player, bool &level_complete, int &max, int &min, bool &pockets)
 {
 
 	char wall_v = 186, wall_h = 205, wall_cross = 206, twall_r = 185, twall_l = 204, twall_u = 203, twall_b = 202, wallcap_h = 254, corner_ul = 201, corner_ur = 187, corner_bl = 200, corner_br = 188, door_h = 215, door_v = 216, encounter = 238; //Level Design, Dianda
 	string response;
-
+	string admin;
+	int level;
+	int heal;
 
 	if (movement && (answer == "up" || answer == "down" || answer == "left" || answer == "right"))
 	{
@@ -823,7 +852,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori - 1][vert] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, inventory);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, pockets);
 				board[hori][vert] = ' ';
 				board[hori - 1][vert] = player;
 				hori = hori - 1;
@@ -856,7 +885,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori + 1][vert] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, inventory);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, pockets);
 				board[hori][vert] = ' ';
 				board[hori + 1][vert] = player;
 				hori = hori + 1;
@@ -891,7 +920,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori][vert - 1] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, inventory);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, pockets);
 				board[hori][vert] = ' ';
 				board[hori][vert - 1] = player;
 				vert = vert - 1;
@@ -923,7 +952,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori][vert + 1] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, inventory);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, pockets);
 
 				board[hori][vert] = ' ';
 				board[hori][vert + 1] = player;
@@ -953,13 +982,66 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 
 		if (response == "yes")
 		{
-			cout << "Huh.";
+			cout << "Enter in the command you wish to use: ";
+			cin >> admin;
+			if (admin == "elevator")
+			{
+				cout << "Choose a floor: ";
+				cin >> level;
+
+				if (level == 1)
+				{
+					cout << "Don't know why you're going back to the start, but I guess I can't stop you.";
+					basement(health, max, min, floor, alive, answer, movement, level_complete, pockets);
+
+				}
+
+				else if (level == 2)
+				{
+
+
+				}
+
+				else if (level == 3)
+				{
+
+
+				}
+
+				else if (level == 4)
+				{
+
+
+				}
+
+				else if (level == 5)
+				{
+
+
+				}
+			}
+
+			else if (admin == "heal")
+			{
+				cout << "Choose an amount to heal for: ";
+				cin >> heal;
+
+				health = health + heal;
+
+				if (health > 100)
+				{
+					health = 100;
+					cout << "Your health can't be above 100." << endl;
+
+				}
+
+			}
 			Sleep(1000);
 		}
 
 		else
 		{
-			cout << "Alright. Back to the game you go then.";
+			cout << "Alright, back to the game you go then.";
 			Sleep(1250);
 		}
 	}
