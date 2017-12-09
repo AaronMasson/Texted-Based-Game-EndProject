@@ -436,7 +436,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 
 	char player = 'P';
 	// Dianda start
-	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, door_v, wall_h, wall_h, wall_h, wall_h, corner_ur },
+	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, door_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
