@@ -47,7 +47,7 @@ void combat(int &, int, int, int, bool &, string &, bool &, bool &, bool &);
 int damage(int, int);
 void monster(int, int &, int &, string &, int &);
 void map();
-void commands(string &, int &, char, bool &, int &, int &, char &, bool &, bool &);
+void commands(string &, int &, bool &, int &, char[][10], bool &, int &, int &, char &, bool &, int &, int &, bool &);
 void inventoryscreen(char[][5], int, int);
 void pickUp(char[][5], int, int, int, char[][3]);
 void useitem(char[][5], char[][3], int, int, int, char);
@@ -67,7 +67,7 @@ int main()
 	int max = 11;
 	// =============
 	bool alive;
-	bool fight;
+	bool level_complete;
 	bool movement;
 	bool pockets;
 	static bool first = true;
@@ -166,13 +166,13 @@ int main()
 		{
 			cout << "Lets begin! " << endl;
 
-			basement(health, max, min, floor, alive, answer, movement, fight, pockets);
+			basement(health, max, min, floor, alive, answer, movement, level_complete, pockets);
 		}
 
 		else if (answer == "no")
 		{
 			cout << "Too bad " << endl;
-			basement(health, max, min, floor, alive, answer, movement, fight, pockets);
+			basement(health, max, min, floor, alive, answer, movement, level_complete, pockets);
 		}
 	}
 	if (alive == false && first == false)
@@ -188,7 +188,7 @@ int main()
 			cout << "Lets begin \nagain... " << endl;
 			alive = true;
 			health = 100;
-			basement(health, max, min, floor, alive, answer, movement, fight, pockets);
+			basement(health, max, min, floor, alive, answer, movement, level_complete, pockets);
 
 		}
 		else
@@ -211,7 +211,7 @@ int main()
 		{
 			cout << "Lets begin... again... " << endl;
 			health = 100;
-			basement(health, max, min, floor, alive, answer, movement, fight, pockets);
+			basement(health, max, min, floor, alive, answer, movement, level_complete, pockets);
 			
 		}
 		else
@@ -400,14 +400,14 @@ void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols, 
 
 }
 
-void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory)
+void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &inventory)
 {
 	
 	floor = 5;
 	Sleep(3000);
 	system("cls");
 	static bool first = true;
-	
+	level_complete = false;
 	
 	
 	cout << "You awake in a damp cold room with nothing but a wooden sword and a mug (what a night eh). " << endl;
@@ -483,7 +483,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	}
 
 
-	while (movement && alive && health > 0)
+	while (movement && alive && health > 0 && !level_complete)
 	{
 		
 		for (i = 0; i < x; i++)
@@ -503,121 +503,11 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			cout << endl;
 		}
 
+		
 		cout << "Which direction will you go? ";
 		cin >> answer;
-		while (answer != "up" && answer != "down" && answer != "left" && answer != "right")
-		{
-			cout << "Invalid. Please enter up or down or left or right. ";
-			cin >> answer;
-		}
 
-		if (answer == "up")
-		{
-			if (board[hori - 1][vert] != wall_h && board[hori - 1][vert] != '?') {
-				board[hori][vert] = ' ';
-				board[hori - 1][vert] = player;
-				hori = hori - 1;
-			}
-
-			else if (board[hori - 1][vert] == wall_h)
-			{
-				cout << "You ran into a wall, try a different direction." << endl;
-				cout << "Side note: You lost 3 hp.";
-				health = health - 3;
-				Sleep(2000);
-			}
-
-			else if (board[hori - 1][vert] == '?')
-			{
-
-				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
-				board[hori][vert] = ' ';
-				board[hori - 1][vert] = player;
-				hori = hori - 1;
-			}
-		}
-		else if (answer == "down")
-		{
-
-			if (board[hori + 1][vert] != wall_h && board[hori + 1][vert] != '?')
-			{
-				board[hori][vert] = ' ';
-				board[hori + 1][vert] = player;
-				hori = hori + 1;
-			}
-			else if (board[hori + 1][vert] == wall_h)
-			{
-				cout << "You ran into a wall, try a different direction." << endl;
-				cout << "Side note: You lost 3 hp.";
-				health = health - 3;
-				Sleep(2000);
-			}
-
-			else if (board[hori + 1][vert] == '?')
-			{
-
-				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
-				board[hori][vert] = ' ';
-				board[hori + 1][vert] = player;
-				hori = hori + 1;
-
-			}
-
-		}
-		else if (answer == "left")
-		{
-			if (board[hori][vert - 1] != wall_v && board[hori][vert - 1] != '?')
-			{
-				board[hori][vert] = ' ';
-				board[hori][vert - 1] = player;
-				vert = vert - 1;
-			}
-
-			else if (board[hori][vert - 1] == wall_v)
-			{
-				cout << "You ran into a wall, try a different direction." << endl;
-				cout << "Side note: You lost 3 hp.";
-				health = health - 3;
-				Sleep(2000);
-			}
-
-			else if (board[hori][vert - 1] == '?')
-			{
-
-				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
-				board[hori][vert] = ' ';
-				board[hori][vert - 1] = player;
-				vert = vert - 1;
-			}
-
-		}
-		else if (answer == "right")
-		{
-			if (board[hori][vert + 1] != wall_v && board[hori][vert + 1] != '?')
-			{
-				board[hori][vert] = ' ';
-				board[hori][vert + 1] = player;
-				vert = vert + 1;
-			}
-			else if (board[hori][vert + 1] == wall_v)
-			{
-				cout << "You ran into a wall, try a different direction." << endl;
-				cout << "Side note: You lost 3 hp.";
-				health = health - 3;
-				Sleep(2000);
-			}
-
-			else if (board[hori][vert + 1] == '?')
-			{
-
-				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
-
-				board[hori][vert] = ' ';
-				board[hori][vert + 1] = player;
-				vert = vert + 1;
-			}
-
-		}
+		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, inventory);
 
 		system("cls");
 	}
@@ -626,6 +516,10 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	{
 		alive = false;
 	}
+	/*else if (level_complete)
+	{
+		ground_floor();
+	}*/
 }
 
 
@@ -904,124 +798,154 @@ void map()
 
 }
 
-//void commands(string &answer, int &health, char board, bool &movement, int &hori, int &vert, char &player, bool &fight, bool &inventory)
-//{
-//	while (movement) 
-//	{
-//		while (answer != "up" && answer != "down" && answer != "left" && answer != "right")
-//		{
-//			cout << "Invalid. Please enter up or down or left or right. ";
-//			cin >> answer;
-//		}
-//
-//		if (answer == "up")
-//		{
-//			if (board[hori - 1][vert] != wall_h && board[hori - 1][vert] != '?') {
-//				board[hori][vert] = ' ';
-//				board[hori - 1][vert] = player;
-//				hori = hori - 1;
-//			}
-//
-//			else if (board[hori - 1][vert] == wall_h)
-//			{
-//				cout << "You ran into a wall, try a different direction." << endl;
-//				cout << "Side note: You lost 3 hp.";
-//				health = health - 3;
-//				Sleep(2000);
-//			}
-//
-//			else if (board[hori - 1][vert] == '?')
-//			{
-//
-//				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
-//				board[hori][vert] = ' ';
-//				board[hori - 1][vert] = player;
-//				hori = hori - 1;
-//			}
-//		}
-//		else if (answer == "down")
-//		{
-//
-//			if (board[hori + 1][vert] != wall_h && board[hori + 1][vert] != '?')
-//			{
-//				board[hori][vert] = ' ';
-//				board[hori + 1][vert] = player;
-//				hori = hori + 1;
-//			}
-//			else if (board[hori + 1][vert] == wall_h)
-//			{
-//				cout << "You ran into a wall, try a different direction." << endl;
-//				cout << "Side note: You lost 3 hp.";
-//				health = health - 3;
-//				Sleep(2000);
-//			}
-//
-//			else if (board[hori + 1][vert] == '?')
-//			{
-//
-//				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
-//				board[hori][vert] = ' ';
-//				board[hori + 1][vert] = player;
-//				hori = hori + 1;
-//
-//			}
-//
-//		}
-//		else if (answer == "left")
-//		{
-//			if (board[hori][vert - 1] != wall_v && board[hori][vert - 1] != '?')
-//			{
-//				board[hori][vert] = ' ';
-//				board[hori][vert - 1] = player;
-//				vert = vert - 1;
-//			}
-//
-//			else if (board[hori][vert - 1] == wall_v)
-//			{
-//				cout << "You ran into a wall, try a different direction." << endl;
-//				cout << "Side note: You lost 3 hp.";
-//				health = health - 3;
-//				Sleep(2000);
-//			}
-//
-//			else if (board[hori][vert - 1] == '?')
-//			{
-//
-//				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
-//				board[hori][vert] = ' ';
-//				board[hori][vert - 1] = player;
-//				vert = vert - 1;
-//			}
-//
-//		}
-//		else if (answer == "right")
-//		{
-//			if (board[hori][vert + 1] != wall_v && board[hori][vert + 1] != '?')
-//			{
-//				board[hori][vert] = ' ';
-//				board[hori][vert + 1] = player;
-//				vert = vert + 1;
-//			}
-//			else if (board[hori][vert + 1] == wall_v)
-//			{
-//				cout << "You ran into a wall, try a different direction." << endl;
-//				cout << "Side note: You lost 3 hp.";
-//				health = health - 3;
-//				Sleep(2000);
-//			}
-//
-//			else if (board[hori][vert + 1] == '?')
-//			{
-//
-//				huh(health, max, min, floor, alive, answer, movement, fight, inventory);
-//
-//				board[hori][vert] = ' ';
-//				board[hori][vert + 1] = player;
-//				vert = vert + 1;
-//			}
-//
-//		}
-//
-//		system("cls");
-//	}
-//}
+void commands(string &answer, int &health, bool &alive, int &floor, char board[][10], bool &movement, int &hori, int &vert, char &player, bool &level_complete, int &max, int &min, bool &inventory)
+{
+
+	char wall_v = 186, wall_h = 205, wall_cross = 206, twall_r = 185, twall_l = 204, twall_u = 203, twall_b = 202, wallcap_h = 254, corner_ul = 201, corner_ur = 187, corner_bl = 200, corner_br = 188, door_h = 215, door_v = 216, encounter = 238; //Level Design, Dianda
+	
+	if (movement) 
+	{
+		while (answer != "up" && answer != "down" && answer != "left" && answer != "right")
+		{
+			cout << "Invalid. Please enter up or down or left or right. ";
+			cin >> answer;
+		}
+
+		if (answer == "up")
+		{
+			if (board[hori - 1][vert] != wall_h && board[hori - 1][vert] != '?' && board[hori - 1][vert] != door_h)
+			{
+				board[hori][vert] = ' ';
+				board[hori - 1][vert] = player;
+				hori = hori - 1;
+			}
+
+			else if (board[hori - 1][vert] == wall_h)
+			{
+				cout << "You ran into a wall, try a different direction." << endl;
+				cout << "Side note: You lost 3 hp.";
+				health = health - 3;
+				Sleep(2000);
+			}
+
+			else if (board[hori - 1][vert] == '?')
+			{
+
+				huh(health, max, min, floor, alive, answer, movement, level_complete, inventory);
+				board[hori][vert] = ' ';
+				board[hori - 1][vert] = player;
+				hori = hori - 1;
+			}
+
+			else if (board[hori - 1][vert] == door_h)
+			{
+				level_complete = true;
+				
+			}
+
+		}
+		else if (answer == "down")
+		{
+
+			if (board[hori + 1][vert] != wall_h && board[hori + 1][vert] != '?' && board[hori][vert] != door_h)
+			{
+				board[hori][vert] = ' ';
+				board[hori + 1][vert] = player;
+				hori = hori + 1;
+			}
+			else if (board[hori + 1][vert] == wall_h)
+			{
+				cout << "You ran into a wall, try a different direction." << endl;
+				cout << "Side note: You lost 3 hp.";
+				health = health - 3;
+				Sleep(2000);
+			}
+
+			else if (board[hori + 1][vert] == '?')
+			{
+
+				huh(health, max, min, floor, alive, answer, movement, level_complete, inventory);
+				board[hori][vert] = ' ';
+				board[hori + 1][vert] = player;
+				hori = hori + 1;
+
+			}
+			
+			else if ( board[hori][vert] == door_h)
+			{
+				level_complete = true;
+				
+			}
+
+
+		}
+		else if (answer == "left")
+		{
+			if (board[hori][vert - 1] != wall_v && board[hori][vert - 1] != '?' && board[hori][vert - 1] != door_v)
+			{
+				board[hori][vert] = ' ';
+				board[hori][vert - 1] = player;
+				vert = vert - 1;
+			}
+
+			else if (board[hori][vert - 1] == wall_v)
+			{
+				cout << "You ran into a wall, try a different direction." << endl;
+				cout << "Side note: You lost 3 hp.";
+				health = health - 3;
+				Sleep(2000);
+			}
+
+			else if (board[hori][vert - 1] == '?')
+			{
+
+				huh(health, max, min, floor, alive, answer, movement, level_complete, inventory);
+				board[hori][vert] = ' ';
+				board[hori][vert - 1] = player;
+				vert = vert - 1;
+			}
+			
+			else if (board[hori][vert - 1] == door_v )
+			{
+				level_complete = true;
+				movement = false;
+			}
+
+		}
+		else if (answer == "right")
+		{
+			if (board[hori][vert + 1] != wall_v && board[hori][vert + 1] != '?' && board[hori][vert + 1] != door_v)
+			{
+				board[hori][vert] = ' ';
+				board[hori][vert + 1] = player;
+				vert = vert + 1;
+			}
+			else if (board[hori][vert + 1] == wall_v)
+			{
+				cout << "You ran into a wall, try a different direction." << endl;
+				cout << "Side note: You lost 3 hp.";
+				health = health - 3;
+				Sleep(2000);
+			}
+
+			else if (board[hori][vert + 1] == '?')
+			{
+
+				huh(health, max, min, floor, alive, answer, movement, level_complete, inventory);
+
+				board[hori][vert] = ' ';
+				board[hori][vert + 1] = player;
+				vert = vert + 1;
+			}
+			else if (board[hori][vert + 1] == door_v )
+			{
+				level_complete = true;
+				
+			}
+
+		}
+
+		
+	}
+	
+}
