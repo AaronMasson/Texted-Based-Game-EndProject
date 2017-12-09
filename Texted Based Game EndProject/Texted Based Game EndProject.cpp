@@ -42,7 +42,13 @@ ostream& operator<<(ostream &stm, const COLOR &c)
 //=============================================================================================================================
 
 // Prototype Functions
+
+// Levels
 void basement(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
+void ground_floor();
+
+// Levels End
+
 void combat(int &, int, int, int, bool &, string &, bool &, bool &, bool &);
 int damage(int, int);
 void monster(int, int &, int &, string &, int &);
@@ -150,12 +156,9 @@ int main()
 		cout << "To move around simply type up, down. Same is for left and right. " << endl;
 		cout << "Are you ready to embark on your journey? (yes) or (no) ";
 		cin >> answer;
-		if (answer == "map")
-		{
-			map();
-		}
+		
 
-		while (answer != "no" && answer != "yes" && answer != "map")
+		while (answer != "no" && answer != "yes")
 		{
 			cout << "Enter in a valid answer: ";
 			cin >> answer;
@@ -204,7 +207,7 @@ int main()
 	{
 		cout << "You survived...\n";
 		Sleep(500);
-		cout << "Woo." << endl << "You uhh want to play again?\n";
+		cout << "Woo." << endl << "You uhh you want to play again?\n";
 		cin >> answer;
 		
 		if (answer == "yes")
@@ -506,6 +509,11 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 		
 		cout << "Which direction will you go? ";
 		cin >> answer;
+		while (answer != "up" && answer != "down" && answer != "left" && answer != "right" && answer != "map" && answer != "admin")
+		{
+			cout << "Invalid. Please enter up or down or left or right. ";
+			cin >> answer;
+		}
 
 		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, inventory);
 
@@ -757,16 +765,16 @@ void map()
 
 
 	char board[10][10] = {
-		{ 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' , 'w' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ,'w' },
-		{ 'w' , '|' , '_' , '_' , '_' , '_' , '_' , '_' , '|' ,'w' },
-		{ 'w' , '|' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , '|' ,'w' },
-		{ 'w' , '|' , '_' , '_' , '_' , '_' , '_' , '_' , '|' ,'w' },
+		{ ' ' , '|' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , '|' ,' ' },
+		{ ' ' , '|' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , '|' ,' ' },
+		{ ' ' , '|' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , '|' ,' ' },
+		{ ' ' , '|' , '_' , '_' , '_' , '_' , '_' , '_' , '|' ,' ' },
+		{ ' ' , '|' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , '|' ,' ' },
+		{ ' ' , '|' , '_' , '_' , '_' , '_' , '_' , '_' , '|' ,' ' },
+		{ ' ' , '|' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , '|' ,' ' },
+		{ '_' , '|' , '_' , '_' , '_' , '_' , '_' , '_' , '|' ,'_' },
+		{ ' ' , '|' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , '|' ,' ' },
+		{ ' ' , '|' , '_' , '_' , '_' , '_' , '_' , '_' , '|' ,' ' },
 
 	};
 
@@ -774,27 +782,14 @@ void map()
 	{
 		for (j = 0; j < y; j++)
 		{
-			if (board[i][j] != 'w')
-			{
-				board[i][j] = '.';
-			}
-		}
-	}
-
-	board[8][1] = 'P';
-
-	for (i = 0; i < x; i++)
-	{
-
-		for (j = 0; j < y; j++)
-		{
-
+			
 			cout << board[i][j] << " ";
-
+		
 		}
-
 		cout << endl;
 	}
+
+	Sleep(3000);
 
 }
 
@@ -802,15 +797,12 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 {
 
 	char wall_v = 186, wall_h = 205, wall_cross = 206, twall_r = 185, twall_l = 204, twall_u = 203, twall_b = 202, wallcap_h = 254, corner_ul = 201, corner_ur = 187, corner_bl = 200, corner_br = 188, door_h = 215, door_v = 216, encounter = 238; //Level Design, Dianda
-	
-	if (movement) 
-	{
-		while (answer != "up" && answer != "down" && answer != "left" && answer != "right")
-		{
-			cout << "Invalid. Please enter up or down or left or right. ";
-			cin >> answer;
-		}
+	string response;
 
+
+	if (movement && (answer == "up" || answer == "down" || answer == "left" || answer == "right"))
+	{
+	
 		if (answer == "up")
 		{
 			if (board[hori - 1][vert] != wall_h && board[hori - 1][vert] != '?' && board[hori - 1][vert] != door_h)
@@ -947,5 +939,28 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 
 		
 	}
-	
+
+	if(answer == "map")
+	{
+		map();
+	}
+
+	if (answer == "admin")
+	{
+		system("cls");
+		cout << "Are you sure you want access to admin commands?" << endl;
+		cin >> response;
+
+		if (response == "yes")
+		{
+			cout << "Huh.";
+			Sleep(1000);
+		}
+
+		else
+		{
+			cout << "Alright. Back to the game you go then.";
+			Sleep(1250);
+		}
+	}
 }
