@@ -537,7 +537,8 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 
 void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &pockets)
 {
-
+	system("cls");
+	cout << "Insert story crap.";
 
 }
 
