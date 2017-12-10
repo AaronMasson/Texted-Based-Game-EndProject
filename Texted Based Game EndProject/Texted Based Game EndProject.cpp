@@ -45,17 +45,17 @@ ostream& operator<<(ostream &stm, const COLOR &c)
 
 // Levels
 void basement(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5]);
-void ground_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5]);
-void second_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5]);
-void third_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5]);
-void finale(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5]);
+void ground_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], int zack);
+void second_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], int zack);
+void third_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], int zack);
+void finale(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], int zack);
 // Levels End
 
-void combat(int &, int, int, int, bool &, string &, bool &, bool &, bool &);
+void combat(int &, int, int, int, bool &, string &, bool &, bool &, bool &, int zack);
 int damage(int, int);
-void monster(int, int &, int &, string &, int &);
+void monster(int, int &, int &, string &, int &, int zack);
 void map();
-void commands(string &, int &, bool &, int &, char[][10], bool &, int &, int &, char &, bool &, int &, int &, bool &, int, int, char[][5]);
+void commands(string &, int &, bool &, int &, char[][10], bool &, int &, int &, char &, bool &, int &, int &, bool &, int, int, char[][5], int zack);
 
 // Inventory
 void inventoryscreen(char[][5], int &, int &);
@@ -65,7 +65,7 @@ void useitem(char[][5], char[][3], int, int, int, char);
 
 
 // Decides what they will run into (items or monster)
-void huh(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
+void huh(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int zack);
 
 
 int main()
@@ -438,6 +438,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	int y = 10;
 	int i;
 	int j;
+	int zack = 5;
 
 	// For the while loop to allow constant movement until an enounter.
 	movement = true;
@@ -527,7 +528,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			cin >> answer;
 		}
 
-		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory);
+		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack);
 
 		system("cls");
 	}
@@ -538,12 +539,12 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	}
 	else if (level_complete)
 	{
-		ground_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory);
+		ground_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
 	}
 }
 
-void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5])
-{
+void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5], int zack)
+{ 
 	system("cls");
 	floor = 2;
 	level_complete = false;
@@ -631,7 +632,7 @@ void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 			cin >> answer;
 		}
 
-		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory);
+		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack);
 
 		system("cls");
 	}
@@ -642,13 +643,13 @@ void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 	}
 	else if (level_complete)
 	{
-		second_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory);
+		second_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
 	}
 
 
 }
 
-void second_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5])
+void second_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5], int zack)
 {
 	system("cls");
 	floor = 3;
@@ -675,14 +676,14 @@ void second_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 	// Dianda start
 	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, door_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, encounter, ' ', wall_v, ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', wall_v, ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ twall_l, wall_h, wall_h, corner_br, ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', corner_ul, ' ', wall_h,twall_r },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', wall_v, ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', wall_v, ' ', encounter,wall_v },
-	{ corner_bl, wall_h, wall_h, wall_h, wall_h, wall_h, twall_b, wall_h, wall_h, corner_br }
+	{ corner_bl, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, corner_br }
 	};
 	// The encounter in the room is going to be a weapon. With the weapons they have to be used to update max and min damage.
 
@@ -737,7 +738,7 @@ void second_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 			cin >> answer;
 		}
 
-		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory);
+		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack);
 
 		system("cls");
 	}
@@ -748,12 +749,12 @@ void second_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 	}
 	else if (level_complete)
 	{
-		third_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory);
+		third_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
 	}
 
 
 }
-void third_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5])
+void third_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5], int zack)
 {
 	system("cls");
 	floor = 4;
@@ -842,7 +843,7 @@ void third_floor(int &health, int &max, int &min, int &floor, bool &alive, strin
 			cin >> answer;
 		}
 
-		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory);
+		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack);
 
 		system("cls");
 	}
@@ -853,12 +854,12 @@ void third_floor(int &health, int &max, int &min, int &floor, bool &alive, strin
 	}
 	else if (level_complete)
 	{
-		finale(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory);
+		finale(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
 	}
 
 
 }
-void finale(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5])
+void finale(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5], int zack)
 {
 	system("cls");
 	floor = 2;
@@ -879,13 +880,14 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 
 	int vert = 1;
 	int hori = 8;
+	int zack = 5;
 
 
 	char player = 'P';
 	// Dianda start
 	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, door_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', wall_v, '5', wall_v, ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', wall_v, ' ', wall_v, ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
@@ -947,7 +949,7 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 			cin >> answer;
 		}
 
-		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory);
+		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack);
 
 		system("cls");
 	}
@@ -965,7 +967,7 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 //========================================================= End of Levels ==============================================================================
 
 // ============================================================================ Justin Marshall start =========================================================================================================
-void combat(int &health, int min, int max, int floor, bool &alive, string &answer, bool &movement, bool &fight, bool &op)
+void combat(int &health, int min, int max, int floor, bool &alive, string &answer, bool &movement, bool &fight, bool &op, int zack)
 {
 
 	int creaturehp;
@@ -975,7 +977,7 @@ void combat(int &health, int min, int max, int floor, bool &alive, string &answe
 	int cmax;
 	
 		
-	monster(floor, cmax, cmin, creature, creaturehp);
+	monster(floor, cmax, cmin, creature, creaturehp, zack);
 
 	// Checks to make sure they are returning correct values.
 	//cout << cmax << endl << cmin << endl << creature << endl << creaturehp << endl;
@@ -1091,7 +1093,7 @@ int damage(int min, int max)
 }
 
 
-void monster(int floor, int &maxdam, int &mindam, string &munster, int &creaturehp)
+void monster(int floor, int &maxdam, int &mindam, string &munster, int &creaturehp, int zack)
 {
 	int yeet;
 	int hp;
@@ -1155,7 +1157,7 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 		creaturehp = 70;
 
 	}
-	/*if (yeet == 5)
+	if ('5')
 	{
 
 	munster = "Zachary Moore";
@@ -1163,13 +1165,13 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 	mindam = 18;
 	maxdam = 25;
 	creaturehp = 400;
-	}*/
+	}
 
 
 
 }
 
-void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory)
+void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory, int zack)
 {
 	srand(time(NULL));
 
@@ -1178,7 +1180,7 @@ void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answe
 
 	if (uhh == 1)
 	{
-		combat(health, max, min, floor, alive, answer, movement, fight, inventory);
+		combat(health, max, min, floor, alive, answer, movement, fight, inventory, zack);
 
 	}
 
@@ -1230,7 +1232,7 @@ void map()
 }
 
 
-void commands(string &answer, int &health, bool &alive, int &floor, char board[][10], bool &movement, int &hori, int &vert, char &player, bool &level_complete, int &max, int &min, bool &op, int invRows, int invCols, char inventory[][5])
+void commands(string &answer, int &health, bool &alive, int &floor, char board[][10], bool &movement, int &hori, int &vert, char &player, bool &level_complete, int &max, int &min, bool &op, int invRows, int invCols, char inventory[][5], int zack)
 {
 
 	char wall_v = 186, wall_h = 205, wall_cross = 206, twall_r = 185, twall_l = 204, twall_u = 203, twall_b = 202, wallcap_h = 254, corner_ul = 201, corner_ur = 187, corner_bl = 200, corner_br = 188, door_h = 215, door_v = 216, encounter = 238; //Level Design, Dianda
@@ -1259,10 +1261,10 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				Sleep(2000);
 			}
 
-			else if (board[hori - 1][vert] == '?')
+			else if (board[hori - 1][vert] == '?' || board[hori - 1][vert] == '5' )
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, op);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, op, zack);
 				board[hori][vert] = ' ';
 				board[hori - 1][vert] = player;
 				hori = hori - 1;
@@ -1295,7 +1297,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori + 1][vert] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, op);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, op, zack);
 				board[hori][vert] = ' ';
 				board[hori + 1][vert] = player;
 				hori = hori + 1;
@@ -1330,7 +1332,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori][vert - 1] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, op);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, op, zack);
 				board[hori][vert] = ' ';
 				board[hori][vert - 1] = player;
 				vert = vert - 1;
@@ -1362,7 +1364,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori][vert + 1] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, op);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, op, zack);
 
 				board[hori][vert] = ' ';
 				board[hori][vert + 1] = player;
@@ -1387,6 +1389,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 	if ( answer == "inv")
 	{
 		inventoryscreen(inventory, invRows, invCols);
+		Sleep(2000);
 	}
 
 	if (answer == "admin")
@@ -1420,7 +1423,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				{
 
 					cout << "Alright, to the second level we go.\n";
-					ground_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory);
+					ground_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
 
 				}
 
@@ -1428,21 +1431,21 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				{
 
 					cout << "Not sure you're properly equiped for this floor, but I guess if you want to.\n";
-					second_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory);
+					second_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
 					
 				}
 
 				else if (level == 4)
 				{
 					cout << "There is plenty of monsters to be found here so good luck.\n";
-					third_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory);
+					third_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
 
 				}
 
 				else if (level == 5)
 				{
 					cout << "Do you have enough potions to take on the boss?\n No, oh well this is the floor you chose.\n";
-					finale(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory);
+					finale(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
 				}
 			}
 
