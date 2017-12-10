@@ -46,8 +46,8 @@ ostream& operator<<(ostream &stm, const COLOR &c)
 // Levels
 void basement(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
 void ground_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
-void second_story(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
-void third_story(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
+void second_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
+void third_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
 void finale(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
 // Levels End
 
@@ -56,9 +56,13 @@ int damage(int, int);
 void monster(int, int &, int &, string &, int &);
 void map();
 void commands(string &, int &, bool &, int &, char[][10], bool &, int &, int &, char &, bool &, int &, int &, bool &);
+
+// Inventory
 void inventoryscreen(char[][5], int, int);
 void pickUp(char[][5], int, int, int, char[][3]);
 void useitem(char[][5], char[][3], int, int, int, char);
+// End of inventory
+
 
 // Decides what they will run into (items or monster)
 void huh(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &);
@@ -77,7 +81,7 @@ int main()
 	bool alive;
 	bool level_complete;
 	bool movement;
-	bool pockets;
+	bool op = false;
 	static bool first = true;
 	int floor;
 	//====================== Aaron Masson ==============================
@@ -171,13 +175,13 @@ int main()
 		{
 			cout << "Lets begin! " << endl;
 
-			basement(health, max, min, floor, alive, answer, movement, level_complete, pockets);
+			basement(health, max, min, floor, alive, answer, movement, level_complete, op);
 		}
 
 		else if (answer == "no")
 		{
 			cout << "Too bad " << endl;
-			basement(health, max, min, floor, alive, answer, movement, level_complete, pockets);
+			basement(health, max, min, floor, alive, answer, movement, level_complete, op);
 		}
 	}
 	if (alive == false && first == false)
@@ -193,7 +197,7 @@ int main()
 			cout << "Lets begin \nagain... " << endl;
 			alive = true;
 			health = 100;
-			basement(health, max, min, floor, alive, answer, movement, level_complete, pockets);
+			basement(health, max, min, floor, alive, answer, movement, level_complete, op);
 
 		}
 		else
@@ -216,7 +220,7 @@ int main()
 		{
 			cout << "Lets begin... again... " << endl;
 			health = 100;
-			basement(health, max, min, floor, alive, answer, movement, level_complete, pockets);
+			basement(health, max, min, floor, alive, answer, movement, level_complete, op);
 			
 		}
 		else
@@ -231,10 +235,55 @@ int main()
 	return 0;
 }// masson end
 
-void inventoryscreen(char inventory[][5], int invRows, int invCols) // Dianda
+void inventoryscreen() // Dianda
 {
 	system("cls");
 	cout << "Backpack:\n";
+	// Dianda
+	string userCommand;
+	int itemSel;
+
+	const int invRows = 8, invCols = 5;
+	char inventory[invRows][invCols] = { { ' ', ' ', ' ', ' ', ' ' },
+										 { ' ', ' ', ' ', ' ', ' ' },
+										 { ' ', ' ', ' ', ' ', ' ' },
+										 { ' ', ' ', ' ', ' ', ' ' },
+									 	 { ' ', ' ', ' ', ' ', ' ' },
+									 	 { ' ', ' ', ' ', ' ', ' ' },
+										 { ' ', ' ', ' ', ' ', ' ' },
+										 { ' ', ' ', ' ', ' ', ' ' } };
+
+	//item list
+	char adminitem = 236;
+	char itemList[5][3]{ { 2, 2, 'P' },			// potion
+	{ 2, 1, 'B' },			// loafy bread
+	{ 6, 1, 'S' },			// actual stabber/sword
+	{ 1, 1, adminitem },	// feckin normies REEEEEE
+	{ 1, 1, 'M' }			// das a mug
+	};
+
+	inventory[7][4] = 'M';
+
+	cout << "inv displays inventory\npickup begins pickuptest\nexitinv ends program\nInput selection: "; /*IMPLEMENT MEEEEE*/
+	cin >> userCommand;
+	while (userCommand != "exitinv") {
+	if (userCommand == "inv") {
+	inventoryscreen(inventory, invRows, invCols);
+	}
+	else if (userCommand == "pickup") {
+	cout << "What is item to pickup? ";
+	cin >> itemSel;
+	pickUp(inventory, invRows, invCols, itemSel, itemList);
+	}
+	else if (userCommand == "useitem") {
+	cout << "what is the item to be used? ";
+	cin >> itemSel;
+	useitem(inventory, itemList, invRows, invCols, itemSel, adminitem);
+	}
+	cout << "Enter endinv to end program: ";
+	cin >> userCommand;
+	}
+	// Dianda end
 	for (int x = 0; x <invRows; x++)
 	{
 		for (int y = 0; y<invCols; y++)
@@ -408,7 +457,7 @@ void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols, 
 
 
 // =========================================================== Levels =================================================================================
-void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &pockets)
+void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op)
 {
 	
 	floor = 1;
@@ -422,7 +471,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	cout << "You hear a scream in the distance. " << endl;
 
 	
-	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1
+	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1. This allows for random spawning of encounters
 	time_t t;
 	srand((unsigned)time(&t));
 
@@ -473,7 +522,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 
 	board[hori][vert] = player;
 
-	for (x = 0; x < 10; x++)
+	for (x = 0; x < 5; x++)
 	{
 
 
@@ -493,7 +542,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 
 	while (movement && alive && health > 0 && !level_complete)
 	{
-		
+		x = 10;
 		for (i = 0; i < x; i++)
 		{
 			for (j = 0; j < y; j++)
@@ -520,7 +569,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			cin >> answer;
 		}
 
-		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, pockets);
+		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op);
 
 		system("cls");
 	}
@@ -531,28 +580,126 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	}
 	else if (level_complete)
 	{
-		ground_floor(health, max, min, floor, alive, answer, movement, level_complete, pockets);
+		ground_floor(health, max, min, floor, alive, answer, movement, level_complete, op);
 	}
 }
 
-void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &pockets)
+void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op)
 {
 	system("cls");
-	cout << "Insert story crap.";
+	floor = 2;
+	level_complete = false;
+	cout << "You head up a staircase to a new floor and you hear more monsters within the dark room" << endl;
+
+
+
+	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1. This allows for random spawning of encounters
+	time_t t;
+	srand((unsigned)time(&t));
+
+	char wall_v = 186, wall_h = 205, wall_cross = 206, twall_r = 185, twall_l = 204, twall_u = 203, twall_b = 202, wallcap_h = 254, corner_ul = 201, corner_ur = 187, corner_bl = 200, corner_br = 188, door_h = 215, door_v = 216, encounter = 238; //Level Design, Dianda
+	int x = 10;
+	int y = 10;
+	int i;
+	int j;
+
+	int vert = 1;
+	int hori = 8;
+
+
+	char player = 'P';
+	// Dianda start
+	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, door_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', corner_ul, ' ', wall_h,twall_r },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', wall_v, ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', wall_v, ' ', encounter,wall_v },
+	{ corner_bl, wall_h, wall_h, wall_h, wall_h, wall_h, twall_b, wall_h, wall_h, corner_br }
+	};
+	
+	board[hori][vert] = player;
+
+	for (x = 0; x < 15; x++)
+	{
+
+
+		i = 1 + rand() % 9;
+		j = 1 + rand() % 9;
+
+
+		while (board[i][j] == ' ')
+		{
+
+			board[i][j] = '?';
+
+		}
+
+	}
+
+
+	while (movement && alive && health > 0 && !level_complete)
+	{
+
+		x = 10;
+
+		for (i = 0; i < x; i++)
+		{
+			for (j = 0; j < y; j++)
+			{
+				if (i == 0 && j < 9) {
+					cout << board[i][j] << wall_h;
+				}
+				else if (i == 9 && j < 9) {
+					cout << board[i][j] << wall_h;
+				}
+				else {
+					cout << board[i][j] << " ";
+				}
+			}
+			cout << endl;
+		}
+
+
+		cout << "Which direction will you go? ";
+		cin >> answer;
+		while (answer != "up" && answer != "down" && answer != "left" && answer != "right" && answer != "map" && answer != "admin")
+		{
+			cout << "Invalid. Please enter up or down or left or right. ";
+			cin >> answer;
+		}
+
+		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op);
+
+		system("cls");
+	}
+
+	if (health <= 0)
+	{
+		alive = false;
+	}
+	else if (level_complete)
+	{
+		ground_floor(health, max, min, floor, alive, answer, movement, level_complete, op);
+	}
+
 
 }
 
-void second_story(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &pockets)
+void second_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op)
 {
 
 
 }
-void third_story(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &pockets)
+void third_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op)
 {
 
 
 }
-void finale(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &pockets)
+void finale(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op)
 {
 
 
@@ -560,7 +707,7 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 //========================================================= End of Levels ==============================================================================
 
 // Justin Marshall
-void combat(int &health, int min, int max, int floor, bool &alive, string &answer, bool &movement, bool &fight, bool &pockets)
+void combat(int &health, int min, int max, int floor, bool &alive, string &answer, bool &movement, bool &fight, bool &op)
 {
 
 	int creaturehp;
@@ -638,12 +785,17 @@ void combat(int &health, int min, int max, int floor, bool &alive, string &answe
 		}
 	}
 
-	if (creaturehp <= 0)
+	if (creaturehp <= 0 && creature != "chandelier")
 	{
 		cout << "You defeated the " << creature << ". Good Job!" << endl;
-		Sleep(1500);
+		Sleep(500);
 	}
 
+	else if (creaturehp <= 0 && creature == "chandelier")
+	{
+		cout << "The chandlier lies broken upon the floor." << endl;
+		Sleep(1000);
+	}
 	else if (health <= 0)
 	{
 		alive = false;
@@ -775,8 +927,6 @@ void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answe
 
 }
 
-// End Justin Marshall
-//==============================================================================================================================
 
 void map()
 {
@@ -821,7 +971,8 @@ void map()
 
 }
 
-void commands(string &answer, int &health, bool &alive, int &floor, char board[][10], bool &movement, int &hori, int &vert, char &player, bool &level_complete, int &max, int &min, bool &pockets)
+
+void commands(string &answer, int &health, bool &alive, int &floor, char board[][10], bool &movement, int &hori, int &vert, char &player, bool &level_complete, int &max, int &min, bool &op)
 {
 
 	char wall_v = 186, wall_h = 205, wall_cross = 206, twall_r = 185, twall_l = 204, twall_u = 203, twall_b = 202, wallcap_h = 254, corner_ul = 201, corner_ur = 187, corner_bl = 200, corner_br = 188, door_h = 215, door_v = 216, encounter = 238; //Level Design, Dianda
@@ -853,7 +1004,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori - 1][vert] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, pockets);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, op);
 				board[hori][vert] = ' ';
 				board[hori - 1][vert] = player;
 				hori = hori - 1;
@@ -886,7 +1037,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori + 1][vert] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, pockets);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, op);
 				board[hori][vert] = ' ';
 				board[hori + 1][vert] = player;
 				hori = hori + 1;
@@ -921,7 +1072,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori][vert - 1] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, pockets);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, op);
 				board[hori][vert] = ' ';
 				board[hori][vert - 1] = player;
 				vert = vert - 1;
@@ -953,7 +1104,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori][vert + 1] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, pockets);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, op);
 
 				board[hori][vert] = ' ';
 				board[hori][vert + 1] = player;
@@ -985,6 +1136,11 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 		{
 			cout << "Enter in the command you wish to use: ";
 			cin >> admin;
+
+			while (admin == "help")
+			{
+				cout << "Your possible admin commands include: heal, elevator, and op";
+			}
 			if (admin == "elevator")
 			{
 				cout << "Choose a floor: ";
@@ -993,32 +1149,37 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				if (level == 1)
 				{
 					cout << "Don't know why you're going back to the start, but I guess I can't stop you.";
-					basement(health, max, min, floor, alive, answer, movement, level_complete, pockets);
+					basement(health, max, min, floor, alive, answer, movement, level_complete, op);
 
 				}
 
 				else if (level == 2)
 				{
 
+					cout << "Alright, to the second level we go.\n";
+					ground_floor(health, max, min, floor, alive, answer, movement, level_complete, op);
 
 				}
 
 				else if (level == 3)
 				{
 
-
+					cout << "Not sure you're properly equiped for this floor, but I guess if you want to.\n";
+					second_floor(health, max, min, floor, alive, answer, movement, level_complete, op);
+					
 				}
 
 				else if (level == 4)
 				{
-
+					cout << "There is plenty of monsters to be found here so good luck.\n";
+					third_floor(health, max, min, floor, alive, answer, movement, level_complete, op);
 
 				}
 
 				else if (level == 5)
 				{
-
-
+					cout << "Do you have enough potions to take on the boss?\n No, oh well this is the floor you chose.\n";
+					finale(health, max, min, floor, alive, answer, movement, level_complete, op);
 				}
 			}
 
@@ -1037,6 +1198,12 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				}
 
 			}
+			else if (admin == "op")
+			{
+				op = true;
+
+			}
+			
 			Sleep(1000);
 		}
 
@@ -1047,3 +1214,5 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 		}
 	}
 }
+
+// ============================================================================== End Justin Marshall ========================================================================================================
