@@ -84,8 +84,8 @@ int main()
 	int health = 100;
 
 	// Weapon damage
-	int min = 70;
-	int max = 80;
+	int min = 1000;
+	int max = 100000;
 	// =============
 	bool alive;
 	bool level_complete;
@@ -265,14 +265,16 @@ void pickUp(char inventory[][5], int invRows, int invCols, bool &op) // Dianda
 	int counterY;
 	int posyCounter;
 	int posxCounter;
-
+	static bool admin = false;
+	static bool encounter = false;
 	itemSizeX = itemList[itemSel][0];
 	itemSizeY = itemList[itemSel][1];
 
-	/*if (op)
+	if (op && !admin)
 	{
-		
-	} admin weapon*/
+		admin = true;
+
+	} //admin weapon
 	posx = 0; posxCounter = 0; posy = 0; posyCounter = 0; counterX = 0; counterY = 0; itemC1 = 0; itemC2 = 0;
 	system("cls");
 	cout << "Backpack:\n";
@@ -807,16 +809,16 @@ void third_floor(int &health, int &max, int &min, int &floor, bool &alive, strin
 
 
 	char player = 'P';
-	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, door_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
+	char board[10][10] = { { corner_ul, wall_h, wall_h, twall_u, wall_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
+	{ wall_v, ' ', ' ', wall_v, ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-	{ wall_v, ' ', corner_ul, corner_br, ' ', ' ', corner_ul, ' ', wall_h,twall_r },
-	{ wall_v, ' ', wall_v, ' ', ' ', ' ', wall_v, ' ', ' ',wall_v },
-	{ wall_v, ' ', wall_v, ' ', ' ', ' ', wall_v, ' ', ' ',wall_v },
-	{ corner_bl, wall_h, twall_b, wall_h, wall_h, wall_h, twall_b, wall_h, wall_h, corner_br }
+	{ wall_v, ' ', ' ', wall_v, ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', wall_v, ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', wall_v, ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', corner_ul, corner_br, ' ', ' ', corner_ul, wall_h, wall_h,twall_r },
+	{ wall_v, ' ', wall_v, ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', wall_v, ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ corner_bl, wall_h, twall_b, wall_h, wall_h, wall_h, wall_h, door_h, wall_h, corner_br }
 	};
 	// The encounter in the room is going to be a weapon. With the weapons they have to be used to update max and min damage.
 
@@ -923,7 +925,7 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', corner_ul, ' ', wall_h,twall_r },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', wall_v, ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', wall_v, ' ', encounter,wall_v },
+	{ wall_v, ' ', ' ', ' ', ' ', ' ', wall_v, ' ', ' ',wall_v },
 	{ corner_bl, wall_h, wall_h, wall_h, wall_h, wall_h, twall_b, wall_h, wall_h, corner_br }
 	};
 	
@@ -1060,6 +1062,8 @@ void combat(int &health, int min, int max, int floor, bool &alive, string &answe
 			}
 			else if (answer == "item")
 			{
+
+				inventoryscreen(inventory, invRows, invCols, min, max, health, op);
 
 			}
 
@@ -1210,7 +1214,7 @@ void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answe
 	int uhh;
 	string invAction;
 
-	1 + rand() % 4;
+	uhh = 1 + rand() % 4;
 
 
 	if (uhh == 1) // monster
@@ -1306,6 +1310,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 	string admin;
 	int level;
 	int heal;
+	bool sword;
 
 	if (movement && (answer == "up" || answer == "down" || answer == "left" || answer == "right"))
 	{
@@ -1354,7 +1359,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 		else if (answer == "down")
 		{
 
-			if (board[hori + 1][vert] != wall_h && board[hori + 1][vert] != '?' && board[hori][vert] != door_h && board[hori + 1][vert] != 'b')
+			if (board[hori + 1][vert] != wall_h && board[hori + 1][vert] != '?' && board[hori][vert] != door_h && board[hori + 1][vert] != 'b' && board[hori + 1][vert] != encounter)
 			{
 				board[hori][vert] = ' ';
 				board[hori + 1][vert] = player;
@@ -1384,6 +1389,12 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				
 			}
 
+			else if (board[hori + 1][vert] == encounter)
+			{
+				sword = true;
+				pickUp(inventory, invRows, invCols, op);
+
+			}
 
 		}
 		else if (answer == "left")
@@ -1421,7 +1432,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 		}
 		else if (answer == "right")
 		{
-			if (board[hori][vert + 1] != wall_v && board[hori][vert + 1] != '?' && board[hori][vert + 1] != door_v)
+			if (board[hori][vert + 1] != wall_v && board[hori][vert + 1] != '?' && board[hori][vert + 1] != door_v && board[hori][vert + 1] != encounter)
 			{
 				board[hori][vert] = ' ';
 				board[hori][vert + 1] = player;
@@ -1451,6 +1462,13 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			}
 
 		}
+		else if (board[hori][vert + 1] == encounter)
+		{
+			sword = true;
+			pickUp(inventory, invRows, invCols, op);
+
+		}
+
 
 		
 	}
