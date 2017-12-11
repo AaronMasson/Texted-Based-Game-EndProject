@@ -50,6 +50,9 @@ void second_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, 
 void third_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], char zack, bool &, bool &);
 void finale(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], char zack, bool &, bool &);
 // Levels End
+// hud
+void hud(int &, int &, int &);
+// hud end
 
 void combat(int &, int, int, int, bool &, string &, bool &, bool &, int, int, char[][5], bool &, char zack, bool &, bool &);
 int damage(int, int);
@@ -84,8 +87,8 @@ int main()
 	int health = 100;
 
 	// Weapon damage
-	int min = 1000;
-	int max = 100000;
+	int min = 10;
+	int max = 15;
 	// =============
 	bool alive;
 	bool level_complete;
@@ -390,8 +393,8 @@ void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols, 
 			}
 			cout << endl;
 		}
-	min = 20;
-	max = 29; //ADD DAMAGE VALUES HERE
+	min = 25;
+	max = 31; //ADD DAMAGE VALUES HERE
 	}
 	if (itemSel == 3); { // item ∞
 		for (int x = 0; x < invRows; x++)
@@ -525,6 +528,8 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 
 	while (movement && alive && health > 0 && !level_complete && !game_complete)
 	{
+		hud(health, min, max);
+
 		x = 10;
 		for (i = 0; i < x; i++)
 		{
@@ -628,6 +633,7 @@ void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 
 	while (movement && alive && health > 0 && !level_complete && !game_complete)
 	{
+		hud(health, min, max);
 
 		x = 10;
 
@@ -701,9 +707,9 @@ void second_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 
 
 	char player = 'P';
-	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, door_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
+	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-	{ wall_v, encounter, ' ', wall_v, ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ door_v, ' ', ' ', wall_v, ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', wall_v, ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ twall_l, wall_h, wall_h, corner_br, ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
@@ -716,7 +722,7 @@ void second_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 
 	board[hori][vert] = player;
 
-	for (x = 0; x < 15; x++)
+	for (x = 0; x < 17; x++)
 	{
 
 
@@ -736,6 +742,7 @@ void second_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 
 	while (movement && alive && health > 0 && !level_complete && !game_complete)
 	{
+		hud(health, min, max);
 
 		x = 10;
 
@@ -824,7 +831,7 @@ void third_floor(int &health, int &max, int &min, int &floor, bool &alive, strin
 
 	board[hori][vert] = player;
 
-	for (x = 0; x < 15; x++)
+	for (x = 0; x < 19; x++)
 	{
 
 
@@ -844,6 +851,8 @@ void third_floor(int &health, int &max, int &min, int &floor, bool &alive, strin
 
 	while (movement && alive && health > 0 && !level_complete && !game_complete)
 	{
+		hud(health, min, max);
+
 
 		x = 10;
 
@@ -932,7 +941,7 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 
 	board[hori][vert] = player;
 
-	for (x = 0; x < 15; x++)
+	for (x = 0; x < 22; x++)
 	{
 
 
@@ -952,6 +961,7 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 
 	while (movement && alive && health > 0 && !level_complete && !game_complete)
 	{
+		hud(health, min, max);
 
 		x = 10;
 
@@ -1213,8 +1223,10 @@ void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answe
 
 	int uhh;
 	string invAction;
+	int item;
 
-	uhh = 1 + rand() % 4;
+	uhh = 2;
+	//uhh = 1 + rand() % 2;
 
 
 	if (uhh == 1) // monster
@@ -1222,37 +1234,42 @@ void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answe
 		combat(health, max, min, floor, alive, answer, movement, level_complete, invRows, invCols, inventory, op, zack, fb, game_complete);
 
 	}
-	else if (uhh == 2) { //potion
-		itemSel = 0;
-		cout << "You find a potion on the ground.\nWhat would you like to do with it? (pickup or ignore)\n";
-		cin >> invAction;
-		if (invAction == "pickup") {
-			pickUp(inventory, invRows, invCols, op);
-			Sleep(3000);
+	else if (uhh == 2) 
+	{
+		item = 1 + rand() % 3;
+
+		if (item == 1) {//potion
+			itemSel = 0;
+			cout << "You find a potion on the ground.\nWhat would you like to do with it? (pickup or ignore)\n";
+			cin >> invAction;
+			if (invAction == "pickup") {
+				pickUp(inventory, invRows, invCols, op);
+				Sleep(3000);
 			}
-		else if (invAction == "ignore") {
+			else if (invAction == "ignore") {
+			}
 		}
-	}
-	else if (uhh == 3) {
-		itemSel = 1;
-		cout << "You find a loaf of bread on the ground.\nWhat would you like to do with it? (pickup or ignore)\n";
-		cin >> invAction;
-		if (invAction == "pickup") {
-			pickUp(inventory, invRows, invCols, op);
-			Sleep(3000);
+		else if (item == 2) {
+			itemSel = 1;
+			cout << "You find a loaf of bread on the ground.\nWhat would you like to do with it? (pickup or ignore)\n";
+			cin >> invAction;
+			if (invAction == "pickup") {
+				pickUp(inventory, invRows, invCols, op);
+				Sleep(3000);
+			}
+			else if (invAction == "ignore") {
+			}
 		}
-		else if (invAction == "ignore") {
-		}
-	}
-	else if (uhh == 4) {
-		itemSel = 2;
-		cout << "You find a sword on the ground.\nWhat would you like to do with it? (pickup or ignore)\n";
-		cin >> invAction;
-		if (invAction == "pickup") {
-			pickUp(inventory, invRows, invCols, op);
-			Sleep(3000);
-		}
-		else if (invAction == "ignore") {
+		else if (item == 3) {
+			itemSel = 2;
+			cout << "You find a sword on the ground.\nWhat would you like to do with it? (pickup or ignore)\n";
+			cin >> invAction;
+			if (invAction == "pickup") {
+				pickUp(inventory, invRows, invCols, op);
+				Sleep(3000);
+			}
+			else if (invAction == "ignore") {
+			}
 		}
 	}
 }
@@ -1301,6 +1318,12 @@ void map()
 
 }
 
+void hud(int &health, int &min, int &max)
+{
+	cout << "Health: " << health << "          " << "Minimum: " << min << "          Maximum: " << max << endl << endl;
+	
+
+}
 
 void commands(string &answer, int &health, bool &alive, int &floor, char board[][10], bool &movement, int &hori, int &vert, char &player, bool &level_complete, int &max, int &min, bool &op, int invRows, int invCols, char inventory[][5], char zack, bool &fb, bool &game_complete)
 {
@@ -1311,6 +1334,8 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 	int level;
 	int heal;
 	bool sword;
+	static bool question = false;
+
 
 	if (movement && (answer == "up" || answer == "down" || answer == "left" || answer == "right"))
 	{
@@ -1487,9 +1512,11 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 	if (answer == "admin")
 	{
 		system("cls");
-		cout << "Are you sure you want access to admin commands?" << endl;
-		cin >> response;
-
+		if (!question) {
+			cout << "Are you sure you want access to admin commands?" << endl;
+			cin >> response;
+			question = true;
+		}
 		if (response == "yes")
 		{
 			cout << "Enter in the command you wish to use: ";
@@ -1562,6 +1589,13 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				pickUp(inventory, invRows, invCols, op);
 			}
 			
+			else if (admin == "damage")
+			{
+				cout << "What would you like your minimum to be: ";
+				cin >> min;
+				cout << "What would you like your maximum to be: ";
+				cin >> max;
+			}
 			Sleep(1000);
 		}
 
