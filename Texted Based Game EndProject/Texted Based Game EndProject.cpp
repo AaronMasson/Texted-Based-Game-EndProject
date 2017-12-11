@@ -1157,15 +1157,15 @@ void monster(int floor, int &maxdam, int &mindam, string &munster, int &creature
 		creaturehp = 70;
 
 	}
-	if (yeet != 0 && yeet != 1 && yeet != 2 && yeet != 3 && yeet != 4)
+	//if (char zack = 'b')
 	{
 		
 		
-	munster = "Zachary Moore";
+	//munster = "Zachary Moore";
 
-	mindam = 18;
-	maxdam = 25;
-	creaturehp = 400;
+	//mindam = 18;
+	//maxdam = 25;
+	//creaturehp = 400;
 	}
 
 
