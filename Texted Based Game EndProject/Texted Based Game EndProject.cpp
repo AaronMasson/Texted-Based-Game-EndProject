@@ -58,15 +58,24 @@ void map();
 void commands(string &, int &, bool &, int &, char[][10], bool &, int &, int &, char &, bool &, int &, int &, bool &, int, int, char[][5], char, bool &, bool &);
 
 // Inventory
-void inventoryscreen(char[][5], int &, int &);
-void pickUp(char[][5], int, int, int, char[][3]);
-void useitem(char[][5], char[][3], int, int, int, char);
+void inventoryscreen(char[][5], int, int);
+void pickUp(char[][5], int, int);
+void useitem(char[][5], char[][3], int, int);
 // End of inventory
 
 
 // Decides what they will run into (items or monster)
 void huh(int &, int &, int &, int &, bool &, string &, bool &, bool &, int, int, char[][5], bool &, char zack, bool &, bool &);
 
+//item list (sorry but theyre globals)
+char adminitem = 236;
+char itemList[5][3]	{	{ 2, 2, 'P' },			// potion
+						{ 2, 1, 'B' },			// loafy bread
+						{ 6, 1, 'S' },			// actual stabber/sword
+						{ 1, 1, adminitem },	// feckin normies REEEEEE
+						{ 1, 1, 'M' }			// das a mug
+};
+int itemSel;
 
 int main()
 {
@@ -91,8 +100,6 @@ int main()
 	string answer;
 	bool valid = true;
 	// Dianda
-	string userCommand;
-	int itemSel;
 
 	const int invRows = 8, invCols = 5;
 	char inventory[invRows][invCols] = {	{ ' ', ' ', ' ', ' ', ' ' },
@@ -104,38 +111,8 @@ int main()
 											{ ' ', ' ', ' ', ' ', ' ' },
 											{ ' ', ' ', ' ', ' ', ' ' } };
 
-	//item list
-	char adminitem = 236;
-	char itemList[5][3]	{	{ 2, 2, 'P' },			// potion
-							{ 2, 1, 'B' },			// loafy bread
-							{ 6, 1, 'S' },			// actual stabber/sword
-							{ 1, 1, adminitem },	// feckin normies REEEEEE
-							{ 1, 1, 'M' }			// das a mug
-						};
 
 	inventory[7][4] = 'M';
-
-	/*cout << "inv displays inventory\npickup begins pickuptest\nexitinv ends program\nInput selection: "; IMPLEMENT MEEEEE
-	cin >> userCommand;
-	while (userCommand != "exitinv") {
-		if (userCommand == "inv") {
-			inventoryscreen(inventory, invRows, invCols);
-		}
-		else if (userCommand == "pickup") {
-			cout << "What is item to pickup? ";
-			cin >> itemSel;
-			pickUp(inventory, invRows, invCols, itemSel, itemList);
-		}
-		else if (userCommand == "useitem") {
-			cout << "what is the item to be used? ";
-			cin >> itemSel;
-			useitem(inventory, itemList, invRows, invCols, itemSel, adminitem);
-		}
-		cout << "Enter endinv to end program: ";
-		cin >> userCommand;
-	}*/
-	// Dianda end
-	
 
 	// Sets the color of ALL the text.
 	cout << white;
@@ -237,9 +214,11 @@ int main()
 	return 0;
 }// masson end
 
-void inventoryscreen(char inventory[][5], int &invRows, int &invCols) // Dianda
+void inventoryscreen(char inventory[][5], int invRows, int invCols) // Dianda
 {
 	system("cls");
+	string invAction;
+
 	cout << "Backpack:\n";
 	
 	for (int x = 0; x <invRows; x++)
@@ -250,10 +229,31 @@ void inventoryscreen(char inventory[][5], int &invRows, int &invCols) // Dianda
 		}
 		cout << endl;
 	}
+	cout << "Item key:\n0 = potion = P\n1 = Bread = B\n2 = Sword = S\n4 = Mug = M\n";
+	cout << "What would you like to do?";
+	cin >> invAction;
+	while (invAction != "exit") {
+		if (invAction == "useitem") {
+			cout << "what is the item to be used? ";
+			cin >> itemSel;
+			//while (itemSel > 4 && itemSel < 0) {
+			//	cout << "Please enter a valid inventory item code:";
+			//	cin >> itemSel;
+			//}
+			useitem(inventory, itemList, invRows, invCols);
+			cout << "Item has been used, what would you like to do?";
+			cin >> invAction;
+		}
+		else {
+			cout << invAction << " is not a recognized command.\nType useitem to use an item or type exit to leave the inventory.";
+			cin >> invAction;
+		}
+	}
+	cout << "Exiting the inventory screen...";
 
 }
 
-void pickUp(char inventory[][5], int invRows, int invCols, int itemSel, char itemList[][3]) // Dianda
+void pickUp(char inventory[][5], int invRows, int invCols) // Dianda
 {
 	int itemSizeX;
 	int itemSizeY;
@@ -330,7 +330,7 @@ void pickUp(char inventory[][5], int invRows, int invCols, int itemSel, char ite
 	}
 }
 
-void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols, int itemSel, char adminitem) // Dianda
+void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols) // Dianda
 {
 	int itemcounter = 0;
 
@@ -346,6 +346,7 @@ void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols, 
 			}
 			cout << endl;
 		}
+		// health + 30; ADD HEALTH HERE
 	}
 	if (itemSel == 1); { // item B
 		for (int x = 0; x < invRows; x++)
@@ -359,6 +360,7 @@ void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols, 
 			}
 			cout << endl;
 		}
+		// health + 10; ADD HEALTH HERE
 	}
 	if (itemSel == 2); { // item S
 		for (int x = 0; x < invRows; x++)
@@ -372,6 +374,7 @@ void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols, 
 			}
 			cout << endl;
 		}
+		// min = ; max = ; ADD DAMAGE VALUES HERE
 	}
 	if (itemSel == 3); { // item ∞
 		for (int x = 0; x < invRows; x++)
@@ -568,7 +571,6 @@ void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 
 
 	char player = 'P';
-	// Dianda start
 	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, door_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
@@ -674,7 +676,6 @@ void second_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 
 
 	char player = 'P';
-	// Dianda start
 	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, door_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, encounter, ' ', wall_v, ' ', ' ', ' ', ' ', ' ',wall_v },
@@ -779,7 +780,6 @@ void third_floor(int &health, int &max, int &min, int &floor, bool &alive, strin
 
 
 	char player = 'P';
-	// Dianda start
 	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, door_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
@@ -885,7 +885,6 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 
 
 	char player = 'P';
-	// Dianda start
 	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, door_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
 	{ wall_v, ' ', ' ', wall_v, zack, wall_v, ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', wall_v, ' ', wall_v, ' ', ' ', ' ',wall_v },
@@ -1178,16 +1177,49 @@ void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answe
 	srand(time(NULL));
 
 	int uhh;
-	uhh = 1;
+	string invAction;
+
+	uhh = 4;
 
 
-	if (uhh == 1)
+	if (uhh == 1) // monster
 	{
 		combat(health, max, min, floor, alive, answer, movement, level_complete, invRows, invCols, inventory, op, zack, fb, game_complete);
 
 	}
-
-
+	else if (uhh == 2) { //potion
+		itemSel = 0;
+		cout << "You find a potion on the ground.\nWhat would you like to do with it? (pickup or ignore)\n";
+		cin >> invAction;
+		if (invAction == "pickup") {
+			pickUp(inventory, invRows, invCols);
+			Sleep(3000);
+			}
+		else if (invAction == "ignore") {
+		}
+	}
+	else if (uhh == 3) {
+		itemSel = 1;
+		cout << "You find a loaf of bread on the ground.\nWhat would you like to do with it? (pickup or ignore)\n";
+		cin >> invAction;
+		if (invAction == "pickup") {
+			pickUp(inventory, invRows, invCols);
+			Sleep(3000);
+		}
+		else if (invAction == "ignore") {
+		}
+	}
+	else if (uhh == 4) {
+		itemSel = 2;
+		cout << "You find a sword on the ground.\nWhat would you like to do with it? (pickup or ignore)\n";
+		cin >> invAction;
+		if (invAction == "pickup") {
+			pickUp(inventory, invRows, invCols);
+			Sleep(3000);
+		}
+		else if (invAction == "ignore") {
+		}
+	}
 }
 
 
@@ -1291,7 +1323,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 		else if (answer == "down")
 		{
 
-			if (board[hori + 1][vert] != wall_h && board[hori + 1][vert] != '?' && board[hori][vert] != door_h)
+			if (board[hori + 1][vert] != wall_h && board[hori + 1][vert] != '?' && board[hori][vert] != door_h && board[hori + 1][vert] != 'b')
 			{
 				board[hori][vert] = ' ';
 				board[hori + 1][vert] = player;
