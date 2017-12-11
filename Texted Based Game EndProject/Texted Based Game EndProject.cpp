@@ -44,18 +44,18 @@ ostream& operator<<(ostream &stm, const COLOR &c)
 // Prototype Functions
 
 // Levels
-void basement(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5]);
-void ground_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], char zack);
-void second_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], char zack);
-void third_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], char zack);
-void finale(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], char zack);
+void basement(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], bool &, bool &);
+void ground_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], char zack, bool &, bool &);
+void second_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], char zack, bool &, bool &);
+void third_floor(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], char zack, bool &, bool &);
+void finale(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, int, int, char[][5], char zack, bool &, bool &);
 // Levels End
 
-void combat(int &, int, int, int, bool &, string &, bool &, bool &, bool &, char zack);
+void combat(int &, int, int, int, bool &, string &, bool &, bool &, int, int, char[][5], bool &, char zack, bool &, bool &);
 int damage(int, int);
-void monster(int, int &, int &, string &, int &, char zack);
+void monster(int, int &, int &, string &, int &, char zack, bool &);
 void map();
-void commands(string &, int &, bool &, int &, char[][10], bool &, int &, int &, char &, bool &, int &, int &, bool &, int, int, char[][5], char zack);
+void commands(string &, int &, bool &, int &, char[][10], bool &, int &, int &, char &, bool &, int &, int &, bool &, int, int, char[][5], char, bool &, bool &);
 
 // Inventory
 void inventoryscreen(char[][5], int &, int &);
@@ -65,7 +65,7 @@ void useitem(char[][5], char[][3], int, int, int, char);
 
 
 // Decides what they will run into (items or monster)
-void huh(int &, int &, int &, int &, bool &, string &, bool &, bool &, bool &, char zack);
+void huh(int &, int &, int &, int &, bool &, string &, bool &, bool &, int, int, char[][5], bool &, char zack, bool &, bool &);
 
 
 int main()
@@ -82,6 +82,8 @@ int main()
 	bool level_complete;
 	bool movement;
 	bool op = false;
+	bool game_complete = false;
+	bool fb = false;
 	static bool first = true;
 	int floor;
 	//====================== Aaron Masson ==============================
@@ -175,14 +177,14 @@ int main()
 		{
 			cout << "Lets begin! " << endl;
 
-			basement(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory);
+			basement(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, fb, game_complete);
 		}
 
 		else if (answer == "no")
 		{
 		
 			cout << "Too bad " << endl;
-			basement(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory);
+			basement(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, fb, game_complete);
 		}
 	}
 	if (alive == false && first == false)
@@ -198,8 +200,7 @@ int main()
 			cout << "Lets begin \nagain... " << endl;
 			alive = true;
 			health = 100;
-			basement(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory);
-
+			basement(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, fb, game_complete);
 		}
 		else
 		{
@@ -221,7 +222,7 @@ int main()
 		{
 			cout << "Lets begin... again. " << endl;
 			health = 100;
-			basement(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory);
+			basement(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, fb, game_complete);
 			
 		}
 		else
@@ -415,7 +416,7 @@ void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols, 
 
 
 // =========================================================== Levels =================================================================================
-void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5])
+void basement(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5], bool &fb, bool &game_complete)
 {
 	
 	floor = 1;
@@ -528,7 +529,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 			cin >> answer;
 		}
 
-		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack);
+		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack, fb, game_complete);
 
 		system("cls");
 	}
@@ -539,11 +540,11 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	}
 	else if (level_complete)
 	{
-		ground_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
+		ground_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack, fb, game_complete);
 	}
 }
 
-void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5], char zack)
+void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5], char zack, bool &fb, bool &game_complete)
 { 
 	system("cls");
 	floor = 2;
@@ -632,7 +633,7 @@ void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 			cin >> answer;
 		}
 
-		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack);
+		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack, fb, game_complete);
 
 		system("cls");
 	}
@@ -643,13 +644,13 @@ void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 	}
 	else if (level_complete)
 	{
-		second_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
+		second_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack, fb, game_complete);
 	}
 
 
 }
 
-void second_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5], char zack)
+void second_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5], char zack, bool &fb, bool &game_complete)
 {
 	system("cls");
 	floor = 3;
@@ -738,7 +739,7 @@ void second_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 			cin >> answer;
 		}
 
-		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack);
+		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack, fb, game_complete);
 
 		system("cls");
 	}
@@ -749,12 +750,12 @@ void second_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 	}
 	else if (level_complete)
 	{
-		third_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
+		third_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack, fb, game_complete);
 	}
 
 
 }
-void third_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5], char zack)
+void third_floor(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5], char zack, bool &fb, bool &game_complete)
 {
 	system("cls");
 	floor = 4;
@@ -843,7 +844,7 @@ void third_floor(int &health, int &max, int &min, int &floor, bool &alive, strin
 			cin >> answer;
 		}
 
-		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack);
+		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack, fb, game_complete);
 
 		system("cls");
 	}
@@ -854,12 +855,12 @@ void third_floor(int &health, int &max, int &min, int &floor, bool &alive, strin
 	}
 	else if (level_complete)
 	{
-		finale(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
+		finale(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack, fb, game_complete);
 	}
 
 
 }
-void finale(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5], char zack)
+void finale(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, bool &op, int invRows, int invCols, char inventory[][5], char zack, bool &fb, bool &game_complete)
 {
 	system("cls");
 	floor = 2;
@@ -896,7 +897,7 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', wall_v, ' ', encounter,wall_v },
 	{ corner_bl, wall_h, wall_h, wall_h, wall_h, wall_h, twall_b, wall_h, wall_h, corner_br }
 	};
-	// The encounter in the room is going to be a weapon. With the weapons they have to be used to update max and min damage.
+	
 
 	board[hori][vert] = player;
 
@@ -949,7 +950,7 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 			cin >> answer;
 		}
 
-		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack);
+		commands(answer, health, alive, floor, board, movement, hori, vert, player, level_complete, max, min, op, invRows, invCols, inventory, zack, fb, game_complete);
 
 		system("cls");
 	}
@@ -961,13 +962,14 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 	else if (health >= 0)
 	{
 		cout << "You have defeated the final boss. Good job.";
+		game_complete = true;
 	}
 
 }
 //========================================================= End of Levels ==============================================================================
 
 // ============================================================================ Justin Marshall start =========================================================================================================
-void combat(int &health, int min, int max, int floor, bool &alive, string &answer, bool &movement, bool &fight, bool &op, char zack)
+void combat(int &health, int min, int max, int floor, bool &alive, string &answer, bool &movement, bool &level_complete, int invRows, int invCols, char inventory[][5], bool &op, char zack, bool &fb, bool &game_complete)
 {
 
 	int creaturehp;
@@ -977,7 +979,7 @@ void combat(int &health, int min, int max, int floor, bool &alive, string &answe
 	int cmax;
 	
 		
-	monster(floor, cmax, cmin, creature, creaturehp, zack);
+	monster(floor, cmax, cmin, creature, creaturehp, zack, fb);
 
 	// Checks to make sure they are returning correct values.
 	//cout << cmax << endl << cmin << endl << creature << endl << creaturehp << endl;
@@ -1093,86 +1095,85 @@ int damage(int min, int max)
 }
 
 
-void monster(int floor, int &maxdam, int &mindam, string &munster, int &creaturehp, char zack)
+void monster(int floor, int &maxdam, int &mindam, string &munster, int &creaturehp, char zack, bool &fb)
 {
 	int yeet;
 	int hp;
 
 	srand(time(NULL));
-	
-	yeet = rand() % floor;
-
-
-	if (yeet == 0)
+	if (!fb) 
 	{
-
-		munster = "imp";
-		mindam = 1;
-		maxdam = 5;
-		creaturehp = 30;
+		yeet = rand() % floor;
 
 
+		if (yeet == 0)
+		{
+
+			munster = "imp";
+			mindam = 1;
+			maxdam = 5;
+			creaturehp = 30;
+
+
+		}
+
+		if (yeet == 1)
+		{
+
+			munster = "goblin";
+
+			mindam = 4;
+			maxdam = 8;
+			creaturehp = 50;
+		}
+
+
+		if (yeet == 2)
+		{
+
+			munster = "orc";
+
+			mindam = 7;
+			maxdam = 12;
+			creaturehp = 55;
+		}
+
+		if (yeet == 3)
+		{
+
+			munster = "chandelier";
+
+			mindam = 20;
+			maxdam = 25;
+			creaturehp = 1;
+
+
+		}
+
+		if (yeet == 4)
+		{
+
+			munster = "sleep deprived college students";
+
+			mindam = 14;
+			maxdam = 19;
+			creaturehp = 70;
+
+		}
 	}
-
-	if (yeet == 1)
+	else if(fb)
 	{
-
-		munster = "goblin";
-
-		mindam = 4;
-		maxdam = 8;
-		creaturehp = 50;
-	}
-
-
-	if (yeet == 2)
-	{
-
-		munster = "orc";
-
-		mindam = 7;
-		maxdam = 12;
-		creaturehp = 55;
-	}
-
-	if (yeet == 3)
-	{
-
-		munster = "chandelier";
-
-		mindam = 20;
+		munster = "Zachary Moore";
+		mindam = 18;
 		maxdam = 25;
-		creaturehp = 1;
-
-
-	}
-
-	if (yeet == 4)
-	{
-
-		munster = "sleep deprived college students";
-
-		mindam = 14;
-		maxdam = 19;
-		creaturehp = 70;
-
-	}
-	//if (char zack = 'b')
-	{
-		
-		
-	//munster = "Zachary Moore";
-
-	//mindam = 18;
-	//maxdam = 25;
-	//creaturehp = 400;
+		creaturehp = 400;
 	}
 
 
 
 }
 
-void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &fight, bool &inventory, char zack)
+void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answer, bool &movement, bool &level_complete, int invRows, int invCols, char inventory[][5], bool &op, char zack, bool &fb, bool &game_complete)
 {
 	srand(time(NULL));
 
@@ -1182,7 +1183,7 @@ void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answe
 
 	if (uhh == 1)
 	{
-		combat(health, max, min, floor, alive, answer, movement, fight, inventory, zack);
+		combat(health, max, min, floor, alive, answer, movement, level_complete, invRows, invCols, inventory, op, zack, fb, game_complete);
 
 	}
 
@@ -1234,7 +1235,7 @@ void map()
 }
 
 
-void commands(string &answer, int &health, bool &alive, int &floor, char board[][10], bool &movement, int &hori, int &vert, char &player, bool &level_complete, int &max, int &min, bool &op, int invRows, int invCols, char inventory[][5], char zack)
+void commands(string &answer, int &health, bool &alive, int &floor, char board[][10], bool &movement, int &hori, int &vert, char &player, bool &level_complete, int &max, int &min, bool &op, int invRows, int invCols, char inventory[][5], char zack, bool &fb, bool &game_complete)
 {
 
 	char wall_v = 186, wall_h = 205, wall_cross = 206, twall_r = 185, twall_l = 204, twall_u = 203, twall_b = 202, wallcap_h = 254, corner_ul = 201, corner_ur = 187, corner_bl = 200, corner_br = 188, door_h = 215, door_v = 216, encounter = 238; //Level Design, Dianda
@@ -1248,7 +1249,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 	
 		if (answer == "up")
 		{
-			if (board[hori - 1][vert] != wall_h && board[hori - 1][vert] != '?' && board[hori - 1][vert] != door_h)
+			if (board[hori - 1][vert] != wall_h && board[hori - 1][vert] != '?' && board[hori - 1][vert] != door_h && board[hori - 1][vert] != 'b')
 			{
 				board[hori][vert] = ' ';
 				board[hori - 1][vert] = player;
@@ -1266,14 +1267,15 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori - 1][vert] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, op, zack);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, invRows, invCols, inventory, op, zack, fb, game_complete);
 				board[hori][vert] = ' ';
 				board[hori - 1][vert] = player;
 				hori = hori - 1;
 			}
 			else if (board[hori - 1][vert] == 'b')
 			{
-				huh(health, max, min, floor, alive, answer, movement, level_complete, op, zack);
+				fb = true;
+				combat(health, max, min, floor, alive, answer, movement, level_complete, invRows, invCols, inventory, op, zack, fb, game_complete);
 				board[hori][vert] = ' ';
 				board[hori - 1][vert] = player;
 				hori = hori - 1;
@@ -1284,7 +1286,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				level_complete = true;
 				
 			}
-
+			
 		}
 		else if (answer == "down")
 		{
@@ -1306,7 +1308,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori + 1][vert] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, op, zack);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, invRows, invCols, inventory, op, zack, fb, game_complete);
 				board[hori][vert] = ' ';
 				board[hori + 1][vert] = player;
 				hori = hori + 1;
@@ -1341,7 +1343,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori][vert - 1] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, op, zack);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, invRows, invCols, inventory, op, zack, fb, game_complete);
 				board[hori][vert] = ' ';
 				board[hori][vert - 1] = player;
 				vert = vert - 1;
@@ -1350,7 +1352,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori][vert - 1] == door_v )
 			{
 				level_complete = true;
-				movement = false;
+				
 			}
 
 		}
@@ -1373,7 +1375,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 			else if (board[hori][vert + 1] == '?')
 			{
 
-				huh(health, max, min, floor, alive, answer, movement, level_complete, op, zack);
+				huh(health, max, min, floor, alive, answer, movement, level_complete, invRows, invCols, inventory, op, zack, fb, game_complete);
 
 				board[hori][vert] = ' ';
 				board[hori][vert + 1] = player;
@@ -1424,7 +1426,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				if (level == 1)
 				{
 					cout << "Don't know why you're going back to the start, but I guess I can't stop you.";
-					basement(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory);
+					basement(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, fb, game_complete);
 
 				}
 
@@ -1432,7 +1434,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				{
 
 					cout << "Alright, to the second level we go.\n";
-					ground_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
+					ground_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack, fb, game_complete);
 
 				}
 
@@ -1440,21 +1442,21 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				{
 
 					cout << "Not sure you're properly equiped for this floor, but I guess if you want to.\n";
-					second_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
+					second_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack, fb, game_complete);
 					
 				}
 
 				else if (level == 4)
 				{
 					cout << "There is plenty of monsters to be found here so good luck.\n";
-					third_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
+					third_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack, fb, game_complete);
 
 				}
 
 				else if (level == 5)
 				{
 					cout << "Do you have enough potions to take on the boss?\n No, oh well this is the floor you chose.\n";
-					finale(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack);
+					finale(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack, fb, game_complete);
 				}
 			}
 
