@@ -58,9 +58,9 @@ void map();
 void commands(string &, int &, bool &, int &, char[][10], bool &, int &, int &, char &, bool &, int &, int &, bool &, int, int, char[][5], char, bool &, bool &);
 
 // Inventory
-void inventoryscreen(char[][5], int, int);
-void pickUp(char[][5], int, int);
-void useitem(char[][5], char[][3], int, int);
+void inventoryscreen(char[][5], int, int, int &, int &, int &, bool &);
+void pickUp(char[][5], int, int, bool &);
+void useitem(char[][5], char[][3], int, int, int &, int &, int &, bool &);
 // End of inventory
 
 
@@ -84,8 +84,8 @@ int main()
 	int health = 100;
 
 	// Weapon damage
-	int min = 5;
-	int max = 11;
+	int min = 70;
+	int max = 80;
 	// =============
 	bool alive;
 	bool level_complete;
@@ -214,7 +214,7 @@ int main()
 	return 0;
 }// masson end
 
-void inventoryscreen(char inventory[][5], int invRows, int invCols) // Dianda
+void inventoryscreen(char inventory[][5], int invRows, int invCols, int &min, int &max, int &health, bool &op) // Dianda
 {
 	system("cls");
 	string invAction;
@@ -240,7 +240,7 @@ void inventoryscreen(char inventory[][5], int invRows, int invCols) // Dianda
 			//	cout << "Please enter a valid inventory item code:";
 			//	cin >> itemSel;
 			//}
-			useitem(inventory, itemList, invRows, invCols);
+			useitem(inventory, itemList, invRows, invCols, min, max, health, op);
 			cout << "Item has been used, what would you like to do?";
 			cin >> invAction;
 		}
@@ -253,7 +253,7 @@ void inventoryscreen(char inventory[][5], int invRows, int invCols) // Dianda
 
 }
 
-void pickUp(char inventory[][5], int invRows, int invCols) // Dianda
+void pickUp(char inventory[][5], int invRows, int invCols, bool &op) // Dianda
 {
 	int itemSizeX;
 	int itemSizeY;
@@ -269,6 +269,10 @@ void pickUp(char inventory[][5], int invRows, int invCols) // Dianda
 	itemSizeX = itemList[itemSel][0];
 	itemSizeY = itemList[itemSel][1];
 
+	/*if (op)
+	{
+		
+	} admin weapon*/
 	posx = 0; posxCounter = 0; posy = 0; posyCounter = 0; counterX = 0; counterY = 0; itemC1 = 0; itemC2 = 0;
 	system("cls");
 	cout << "Backpack:\n";
@@ -330,7 +334,7 @@ void pickUp(char inventory[][5], int invRows, int invCols) // Dianda
 	}
 }
 
-void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols) // Dianda
+void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols, int &min, int &max, int &health, bool &op) // Dianda
 {
 	int itemcounter = 0;
 
@@ -346,7 +350,12 @@ void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols) 
 			}
 			cout << endl;
 		}
-		// health + 30; ADD HEALTH HERE
+		health + 30; //ADD HEALTH HERE
+		if (health > 100)
+		{
+			cout << "Health cannot be greater than 100.";
+			health = 100;
+		}
 	}
 	if (itemSel == 1); { // item B
 		for (int x = 0; x < invRows; x++)
@@ -360,7 +369,12 @@ void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols) 
 			}
 			cout << endl;
 		}
-		// health + 10; ADD HEALTH HERE
+		health + 10; //ADD HEALTH HERE
+		if (health > 100)
+		{
+			cout << "Health cannot be greater than 100.";
+			health = 100;
+		}
 	}
 	if (itemSel == 2); { // item S
 		for (int x = 0; x < invRows; x++)
@@ -374,7 +388,8 @@ void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols) 
 			}
 			cout << endl;
 		}
-		// min = ; max = ; ADD DAMAGE VALUES HERE
+	min = 20;
+	max = 29; //ADD DAMAGE VALUES HERE
 	}
 	if (itemSel == 3); { // item ∞
 		for (int x = 0; x < invRows; x++)
@@ -388,6 +403,8 @@ void useitem(char inventory[][5], char itemList[][3], int invRows, int invCols) 
 			}
 			cout << endl;
 		}
+		min = 100;
+		max = 115;
 	}
 	if (itemSel == 4); { // item M
 		for (int x = 0; x < invRows; x++)
@@ -428,10 +445,11 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	static bool first = true;
 	level_complete = false;
 	
-	
-	cout << "You awake in a damp cold room with nothing but a wooden sword and a mug (what a night eh). " << endl;
-	cout << "You hear a scream in the distance. " << endl;
-
+	if (!game_complete) 
+	{
+		cout << "You awake in a damp cold room with nothing but a wooden sword and a mug (what a night eh). " << endl;
+		cout << "You hear a scream in the distance. " << endl;
+	}
 	
 	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1. This allows for random spawning of encounters
 	time_t t;
@@ -503,7 +521,7 @@ void basement(int &health, int &max, int &min, int &floor, bool &alive, string &
 	}
 
 
-	while (movement && alive && health > 0 && !level_complete)
+	while (movement && alive && health > 0 && !level_complete && !game_complete)
 	{
 		x = 10;
 		for (i = 0; i < x; i++)
@@ -552,8 +570,10 @@ void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 	system("cls");
 	floor = 2;
 	level_complete = false;
-	cout << "You head up a staircase to a new floor and you hear more monsters within the dark room" << endl;
-
+	if (!game_complete) 
+	{
+		cout << "You head up a staircase to a new floor and you hear more monsters within the dark room" << endl;
+	}
 
 
 	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1. This allows for random spawning of encounters
@@ -571,16 +591,16 @@ void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 
 
 	char player = 'P';
-	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, door_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
+	char board[10][10] = { { corner_ul, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, wall_h, corner_ur },
+	{ door_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ twall_l, wall_h, corner_ul, ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', corner_ul, ' ', wall_h,twall_r },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', wall_v, ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', wall_v, ' ', encounter,wall_v },
-	{ corner_bl, wall_h, wall_h, wall_h, wall_h, wall_h, twall_b, wall_h, wall_h, corner_br }
+	{ wall_v, ' ', ' ', wall_v, ' ', ' ', ' ', ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', wall_v, ' ', ' ', ' ', ' ', wall_h,twall_r },
+	{ wall_v, ' ', ' ', wall_v, ' ', ' ', wall_v, ' ', ' ',wall_v },
+	{ wall_v, ' ', ' ', wall_v, ' ', ' ', wall_v, ' ', ' ',wall_v },
+	{ corner_bl, wall_h, wall_h, twall_b, wall_h, wall_h, twall_b, wall_h, wall_h, corner_br }
 	};
 	// The encounter in the room is going to be a weapon. With the weapons they have to be used to update max and min damage.
 	
@@ -604,7 +624,7 @@ void ground_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 	}
 
 
-	while (movement && alive && health > 0 && !level_complete)
+	while (movement && alive && health > 0 && !level_complete && !game_complete)
 	{
 
 		x = 10;
@@ -657,8 +677,11 @@ void second_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 	system("cls");
 	floor = 3;
 	level_complete = false;
-	cout << "As you enter yet anotherroom of the tower you see rickety old chandeliers hazardly hanging from the ceiling. Then a lot coser than before you hear a scream." << endl;
 
+	if (!game_complete)
+	{
+		cout << "As you enter yet anotherroom of the tower you see rickety old chandeliers hazardly hanging from the ceiling. Then a lot coser than before you hear a scream." << endl;
+	}
 
 
 	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1. This allows for random spawning of encounters
@@ -709,7 +732,7 @@ void second_floor(int &health, int &max, int &min, int &floor, bool &alive, stri
 	}
 
 
-	while (movement && alive && health > 0 && !level_complete)
+	while (movement && alive && health > 0 && !level_complete && !game_complete)
 	{
 
 		x = 10;
@@ -761,7 +784,11 @@ void third_floor(int &health, int &max, int &min, int &floor, bool &alive, strin
 	system("cls");
 	floor = 4;
 	level_complete = false;
-	cout << "You head up a staircase to a new floor and you hear more monsters within the dark room" << endl;
+
+	if (!game_complete) 
+	{
+		cout << "The screaming is growing ever louder and you wonder what horrors await in the next room." << endl;
+	}
 
 
 
@@ -786,10 +813,10 @@ void third_floor(int &health, int &max, int &min, int &floor, bool &alive, strin
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
 	{ wall_v, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', corner_ul, ' ', wall_h,twall_r },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', wall_v, ' ', ' ',wall_v },
-	{ wall_v, ' ', ' ', ' ', ' ', ' ', wall_v, ' ', encounter,wall_v },
-	{ corner_bl, wall_h, wall_h, wall_h, wall_h, wall_h, twall_b, wall_h, wall_h, corner_br }
+	{ wall_v, ' ', corner_ul, corner_br, ' ', ' ', corner_ul, ' ', wall_h,twall_r },
+	{ wall_v, ' ', wall_v, ' ', ' ', ' ', wall_v, ' ', ' ',wall_v },
+	{ wall_v, ' ', wall_v, ' ', ' ', ' ', wall_v, ' ', ' ',wall_v },
+	{ corner_bl, wall_h, twall_b, wall_h, wall_h, wall_h, twall_b, wall_h, wall_h, corner_br }
 	};
 	// The encounter in the room is going to be a weapon. With the weapons they have to be used to update max and min damage.
 
@@ -813,7 +840,7 @@ void third_floor(int &health, int &max, int &min, int &floor, bool &alive, strin
 	}
 
 
-	while (movement && alive && health > 0 && !level_complete)
+	while (movement && alive && health > 0 && !level_complete && !game_complete)
 	{
 
 		x = 10;
@@ -865,8 +892,11 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 	system("cls");
 	floor = 2;
 	level_complete = false;
-	cout << "You head up a staircase to a new floor and you hear more monsters within the dark room" << endl;
 
+	if (!game_complete) 
+	{
+		cout << "As you enter into another room you see light coming through a doorway on the otherside of the room, but it's blocked by a shadowy figure." << endl;
+	}
 
 
 	// Source: http://www.cplusplus.com/forum/beginner/65037/ By whitenite1. This allows for random spawning of encounters
@@ -918,7 +948,7 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 	}
 
 
-	while (movement && alive && health > 0 && !level_complete)
+	while (movement && alive && health > 0 && !level_complete && !game_complete)
 	{
 
 		x = 10;
@@ -960,8 +990,9 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 	}
 	else if (health >= 0)
 	{
-		cout << "You have defeated the final boss. Good job.";
+		cout << "You have defeated the final boss, and you are now free from the tower. As you emerge through the doorway you see the great landscape all around the tower, but you are really high up and must have missed the actual exit on a different floor.\n";
 		game_complete = true;
+		Sleep(2000);
 	}
 
 }
@@ -1179,7 +1210,7 @@ void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answe
 	int uhh;
 	string invAction;
 
-	uhh = 4;
+	1 + rand() % 4;
 
 
 	if (uhh == 1) // monster
@@ -1192,7 +1223,7 @@ void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answe
 		cout << "You find a potion on the ground.\nWhat would you like to do with it? (pickup or ignore)\n";
 		cin >> invAction;
 		if (invAction == "pickup") {
-			pickUp(inventory, invRows, invCols);
+			pickUp(inventory, invRows, invCols, op);
 			Sleep(3000);
 			}
 		else if (invAction == "ignore") {
@@ -1203,7 +1234,7 @@ void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answe
 		cout << "You find a loaf of bread on the ground.\nWhat would you like to do with it? (pickup or ignore)\n";
 		cin >> invAction;
 		if (invAction == "pickup") {
-			pickUp(inventory, invRows, invCols);
+			pickUp(inventory, invRows, invCols, op);
 			Sleep(3000);
 		}
 		else if (invAction == "ignore") {
@@ -1214,7 +1245,7 @@ void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answe
 		cout << "You find a sword on the ground.\nWhat would you like to do with it? (pickup or ignore)\n";
 		cin >> invAction;
 		if (invAction == "pickup") {
-			pickUp(inventory, invRows, invCols);
+			pickUp(inventory, invRows, invCols, op);
 			Sleep(3000);
 		}
 		else if (invAction == "ignore") {
@@ -1431,7 +1462,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 
 	if ( answer == "inv")
 	{
-		inventoryscreen(inventory, invRows, invCols);
+		inventoryscreen(inventory, invRows, invCols, min, max, health, op);
 		Sleep(2000);
 	}
 
@@ -1508,9 +1539,9 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 
 			}
 			else if (admin == "op")
-			{
+			{	
 				op = true;
-
+				pickUp(inventory, invRows, invCols, op);
 			}
 			
 			Sleep(1000);
