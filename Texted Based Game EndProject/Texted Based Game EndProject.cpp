@@ -200,6 +200,7 @@ int main()
 		
 		if (answer == "yes")
 		{
+			game_complete = false;
 			cout << "Lets begin... again. " << endl;
 			health = 100;
 			basement(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, fb, game_complete);
@@ -1004,7 +1005,8 @@ void finale(int &health, int &max, int &min, int &floor, bool &alive, string &an
 	{
 		cout << "You have defeated the final boss, and you are now free from the tower. As you emerge through the doorway you see the great landscape all around the tower, but you are really high up and must have missed the actual exit on a different floor.\n";
 		game_complete = true;
-		Sleep(2000);
+		system("pause");
+	
 	}
 
 }
@@ -1225,8 +1227,8 @@ void huh(int &health, int &max, int &min, int &floor, bool &alive, string &answe
 	string invAction;
 	int item;
 
-	uhh = 2;
-	//uhh = 1 + rand() % 2;
+	//uhh = 2;
+	uhh = 1 + rand() % 2;
 
 
 	if (uhh == 1) // monster
@@ -1515,16 +1517,21 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 		if (!question) {
 			cout << "Are you sure you want access to admin commands?" << endl;
 			cin >> response;
-			question = true;
+			if (response == "yes")
+			{
+				question = true;
+			}
 		}
-		if (response == "yes")
+		if (response == "yes" || question)
 		{
 			cout << "Enter in the command you wish to use: ";
 			cin >> admin;
 
 			while (admin == "help")
 			{
-				cout << "Your possible admin commands include: heal, elevator, and op";
+				cout << "Your possible admin commands include: heal, elevator, damage, and op\n";
+				cout << "Enter in the command you wish to use: ";
+				cin >> admin;
 			}
 			if (admin == "elevator")
 			{
