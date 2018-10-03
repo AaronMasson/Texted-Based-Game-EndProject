@@ -234,16 +234,16 @@ void inventoryscreen(char inventory[][5], int invRows, int invCols, int &min, in
 		cout << endl;
 	}
 	cout << "Item key:\n0 = potion = P\n1 = Bread = B\n2 = Sword = S\n4 = Mug = M\n";
-	cout << "What would you like to do?";
+	cout << "What would you like to do?\n";
 	cin >> invAction;
 	while (invAction != "exit") {
 		if (invAction == "useitem") {
-			cout << "what is the item to be used? ";
+			cout << "what is the item to be used?\n(Enter in the numeric value of the item)\n ";
 			cin >> itemSel;
-			//while (itemSel > 4 && itemSel < 0) {
-			//	cout << "Please enter a valid inventory item code:";
-			//	cin >> itemSel;
-			//}
+			while (itemSel > 4 && itemSel < 0) {
+				cout << "Please enter a valid inventory item code:";
+				cin >> itemSel;
+			}
 			useitem(inventory, itemList, invRows, invCols, min, max, health, op);
 			cout << "Item has been used, what would you like to do?";
 			cin >> invAction;
@@ -1386,7 +1386,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 		else if (answer == "down")
 		{
 
-			if (board[hori + 1][vert] != wall_h && board[hori + 1][vert] != '?' && board[hori][vert] != door_h && board[hori + 1][vert] != 'b' && board[hori + 1][vert] != encounter)
+			if (board[hori + 1][vert] != wall_h && board[hori + 1][vert] != '?' && board[hori + 1][vert] != door_h && board[hori + 1][vert] != 'b' && board[hori + 1][vert] != encounter)
 			{
 				board[hori][vert] = ' ';
 				board[hori + 1][vert] = player;
@@ -1410,7 +1410,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 
 			}
 			
-			else if ( board[hori][vert] == door_h)
+			else if ( board[hori + 1][vert] == door_h)
 			{
 				level_complete = true;
 				
@@ -1541,6 +1541,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				if (level == 1)
 				{
 					cout << "Don't know why you're going back to the start, but I guess I can't stop you.";
+					Sleep(3000);
 					basement(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, fb, game_complete);
 
 				}
@@ -1549,6 +1550,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				{
 
 					cout << "Alright, to the second level we go.\n";
+					Sleep(3000);
 					ground_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack, fb, game_complete);
 
 				}
@@ -1557,6 +1559,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				{
 
 					cout << "Not sure you're properly equiped for this floor, but I guess if you want to.\n";
+					Sleep(3000);
 					second_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack, fb, game_complete);
 					
 				}
@@ -1564,6 +1567,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				else if (level == 4)
 				{
 					cout << "There is plenty of monsters to be found here so good luck.\n";
+					Sleep(3000);
 					third_floor(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack, fb, game_complete);
 
 				}
@@ -1571,6 +1575,7 @@ void commands(string &answer, int &health, bool &alive, int &floor, char board[]
 				else if (level == 5)
 				{
 					cout << "Do you have enough potions to take on the boss?\n No, oh well this is the floor you chose.\n";
+					Sleep(3000);
 					finale(health, max, min, floor, alive, answer, movement, level_complete, op, invRows, invCols, inventory, zack, fb, game_complete);
 				}
 			}
